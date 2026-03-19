@@ -93,6 +93,10 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .plat-btn .icon{font-size:18px;display:block;margin-bottom:3px;}
 .plat-btn:hover{border-color:var(--accent2);}
 .plat-btn.on{border-color:var(--accent2);background:rgba(255,179,0,.1);}
+.style-btn{flex:1;min-width:90px;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;}
+.style-btn .icon{font-size:18px;display:block;margin-bottom:3px;}
+.style-btn:hover{border-color:var(--success);}
+.style-btn.on{border-color:var(--success);background:rgba(0,224,150,.1);}
 
 /* STEP 3 — SHOP + ADD PRODUCTS */
 .store-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
@@ -326,10 +330,10 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 <div class="card">
   <div class="step-label">Step 2B — Choose Video Style</div>
   <div class="plat-row" style="flex-wrap:wrap;">
-    <button class="plat-btn" onclick="selStyle(this,'Problem/Solution hook')" style="min-width:130px;"><span class="icon">🎯</span>Problem / Solution</button>
-    <button class="plat-btn" onclick="selStyle(this,'Top 5 list countdown')" style="min-width:130px;"><span class="icon">🔢</span>Top 5 List</button>
-    <button class="plat-btn" onclick="selStyle(this,'Unboxing & honest review')" style="min-width:130px;"><span class="icon">📦</span>Unboxing Review</button>
-    <button class="plat-btn" onclick="selStyle(this,'Budget vs Premium comparison')" style="min-width:130px;"><span class="icon">⚖️</span>Budget vs Premium</button>
+    <button class="style-btn" onclick="selStyle(this,'Problem/Solution hook')" style="min-width:130px;"><span class="icon">🎯</span>Problem / Solution</button>
+    <button class="style-btn" onclick="selStyle(this,'Top 5 list countdown')" style="min-width:130px;"><span class="icon">🔢</span>Top 5 List</button>
+    <button class="style-btn" onclick="selStyle(this,'Unboxing & honest review')" style="min-width:130px;"><span class="icon">📦</span>Unboxing Review</button>
+    <button class="style-btn" onclick="selStyle(this,'Budget vs Premium comparison')" style="min-width:130px;"><span class="icon">⚖️</span>Budget vs Premium</button>
   </div>
 </div>
 
@@ -588,33 +592,50 @@ function storeUrl(store, term){
 function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours()+':'+(n.getMinutes()<10?'0':'')+n.getMinutes();}
 setInterval(tick,10000);tick();
 
-// ══ SELECTORS ══
+// Set default store URLs so buttons work even before category is picked
+(function(){
+  const defaults={
+    takealot:'https://www.takealot.com',
+    amazon:'https://www.amazon.co.za',
+    temu:'https://www.temu.com',
+    superbalist:'https://superbalist.com',
+    makro:'https://www.makro.co.za'
+  };
+  Object.entries(defaults).forEach(([store,url])=>{
+    const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
+    if(el) el.href=url;
+  });
+})();
+
+// ══ SELECTORS — each uses its own dedicated CSS class ══
 function selCat(btn,label,key){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   cat=label; catKey=key;
-  // Update all store links to search for this category
+  // Update ALL store buttons to open the correct category
   const s=CAT_SEARCH[key]||{};
   ['takealot','amazon','temu','superbalist','makro'].forEach(store=>{
     const term=s[store];
     const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
     if(!el) return;
-    if(term){ el.href=storeUrl(store,term); el.style.opacity='1'; }
-    else { el.href='https://www.'+store+'.com'; el.style.opacity='.5'; }
+    const url=storeUrl(store,term||label.replace(/ /g,'+'));
+    el.href=url||'https://www.'+store+'.com';
+    el.style.opacity='1';
   });
-  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it above (Ctrl+V) → Click + ADD`;
-}
-
-function selStyle(btn,val){
-  document.querySelectorAll('.plat-btn').forEach(b=>{ if(b.onclick&&b.onclick.toString().includes('selStyle')) b.classList.remove('on'); });
-  btn.classList.add('on');
-  window._selectedStyle=val;
+  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store button above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it in the box below (Ctrl+V) → Click + ADD`;
 }
 
 function selPlat(btn,val){
-  document.querySelectorAll('.plat-btn').forEach(b=>{ if(b.onclick&&b.onclick.toString().includes('selPlat')) b.classList.remove('on'); });
-  btn.classList.add('on'); plat=val;
+  document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  plat=val;
   swUI(val==='Facebook Reels'?'fb':'tt');
+}
+
+function selStyle(btn,val){
+  document.querySelectorAll('.style-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  window._selectedStyle=val;
 }
 
 // ══ ADD PRODUCT (offline — no API, uses URL slug) ══
