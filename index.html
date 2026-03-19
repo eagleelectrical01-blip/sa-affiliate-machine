@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SA Affiliate Machine</title>
+
+<!-- PWA META TAGS -->
+<meta name="application-name" content="SA Affiliate Machine">
+<meta name="description" content="Generate affiliate marketing content for TikTok and Facebook Reels. South African affiliate tool.">
+<meta name="theme-color" content="#ff4500">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SA Affiliate">
+
+<!-- PWA MANIFEST (inline as data URI so single-file works) -->
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22SA%20Affiliate%20Machine%22%2C%22short_name%22%3A%22SA%20Affiliate%22%2C%22description%22%3A%22Generate%20affiliate%20content%20for%20TikTok%20and%20Facebook%20Reels%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%2207070f%22%2C%22theme_color%22%3A%22ff4500%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520192%2520192%2527%253E%253Crect%2520width%253D%2527192%2527%2520height%253D%2527192%2527%2520rx%253D%252740%2527%2520fill%253D%2527%2523ff4500%2527%252F%253E%253Ctext%2520x%253D%252796%2527%2520y%253D%2527130%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%2527120%2527%253E%25F0%259F%25A4%2591%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+
+<!-- Apple touch icon -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23ff4500'/><text x='90' y='125' text-anchor='middle' font-size='110'>🤑</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* PWA install banner */
+.install-banner{
+  position:fixed;bottom:0;left:0;right:0;
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  border-top:2px solid var(--accent);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+  z-index:9999;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -8px 32px rgba(0,0,0,.6);
+}
+.install-banner.show{transform:translateY(0);}
+.install-banner .app-icon{width:48px;height:48px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.install-banner .banner-text{flex:1;}
+.install-banner .banner-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.install-banner .banner-sub{font-size:11px;color:rgba(255,255,255,.6);}
+.install-banner .install-btn{padding:10px 18px;background:var(--accent);border:none;border-radius:9px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.install-banner .dismiss-btn{background:transparent;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
+
+/* iOS install instructions modal */
+.ios-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;
+  display:none;align-items:flex-end;justify-content:center;padding:16px;
+}
+.ios-modal.show{display:flex;}
+.ios-modal-box{
+  background:#1a1a2e;border:1px solid var(--border);border-radius:18px;
+  padding:24px;max-width:380px;width:100%;
+  animation:fadeUp .3s ease both;
+}
+.ios-modal-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent2);margin-bottom:14px;letter-spacing:2px;}
+.ios-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;}
+.ios-step .ios-num{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.ios-close{width:100%;padding:13px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;margin-top:6px;}
+
+:root{
+  --bg:#07070f; --surface:#0f0f1a; --card:#14141f; --border:#22223a;
+  --accent:#ff4500; --accent2:#ffb300; --success:#00e096; --info:#4fc3f7;
+  --text:#eeeef8; --muted:#5a5a90;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,69,0,.07) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.wrap{max-width:1020px;margin:0 auto;padding:32px 16px 80px;position:relative;z-index:1;}
+
+/* HEADER */
+.header{text-align:center;margin-bottom:36px;}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 14px;border-radius:3px;margin-bottom:12px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-height:.9;letter-spacing:3px;background:linear-gradient(120deg,#fff 30%,var(--accent) 75%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.tagline{color:var(--muted);font-size:13px;}
+
+/* STEP CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;}
+.step-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.step-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+/* CATEGORY GRID */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;}
+.cat-btn{background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;}
+.cat-btn .icon{font-size:24px;display:block;margin-bottom:6px;}
+.cat-btn:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,69,0,.15);}
+.cat-btn.on{border-color:var(--accent);background:rgba(255,69,0,.1);box-shadow:0 0 0 1px var(--accent);}
+
+/* PLATFORM */
+.plat-row{display:flex;gap:8px;flex-wrap:wrap;}
+.plat-btn{flex:1;min-width:90px;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;}
+.plat-btn .icon{font-size:18px;display:block;margin-bottom:3px;}
+.plat-btn:hover{border-color:var(--accent2);}
+.plat-btn.on{border-color:var(--accent2);background:rgba(255,179,0,.1);}
+
+/* STEP 3 — SHOP + ADD PRODUCTS */
+.store-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.store-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;text-decoration:none;color:#fff;font-family:'DM Sans',sans-serif;}
+.store-btn:hover{transform:translateY(-2px);filter:brightness(1.12);}
+.store-btn.takealot{background:#e53935;}
+.store-btn.amazon{background:#ff9900;color:#000;}
+.store-btn.temu{background:linear-gradient(135deg,#ff6b35,#f7931e);}
+.store-btn.superbalist{background:#333;border:1px solid #666;}
+.store-btn.makro{background:#00457c;}
+.store-btn.faithful{background:#2e7d32;}
+
+/* ADD PRODUCT FORM */
+.add-form{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;}
+.add-form-title{font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:10px;}
+.add-row{display:flex;gap:8px;margin-bottom:8px;}
+.add-input{flex:1;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;transition:border .2s;}
+.add-input:focus{border-color:var(--accent2);}
+.add-input::placeholder{color:var(--muted);}
+.add-btn{padding:10px 18px;background:linear-gradient(135deg,var(--accent2),#ff8c00);border:none;border-radius:8px;color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.add-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,179,0,.3);}
+.add-hint{font-size:10px;color:var(--muted);line-height:1.6;}
+.add-hint strong{color:var(--text);}
+
+/* PRODUCT CARDS LIST */
+.product-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.prod-card{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:14px;transition:all .2s;position:relative;}
+.prod-card.loaded{border-color:var(--success);}
+.prod-card .prod-emoji{font-size:36px;flex-shrink:0;width:56px;height:56px;background:var(--card);border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);}
+.prod-card img.prod-img{width:56px;height:56px;object-fit:cover;border-radius:10px;border:1px solid var(--border);flex-shrink:0;}
+.prod-card .prod-details{flex:1;}
+.prod-card .prod-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+.prod-card .prod-price{font-size:16px;font-weight:700;color:var(--success);margin-bottom:2px;}
+.prod-card .prod-store{font-size:10px;color:var(--muted);}
+.prod-card .prod-link{font-size:10px;color:var(--accent2);text-decoration:none;}
+.prod-card .prod-link:hover{text-decoration:underline;}
+.prod-card .remove-prod{position:absolute;top:8px;right:10px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;cursor:pointer;padding:3px 8px;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.prod-card .remove-prod:hover{border-color:var(--accent);color:var(--accent);}
+.prod-card .upload-img-btn{font-size:10px;color:var(--info);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;margin-top:3px;display:block;text-decoration:underline;}
+.prod-card input.img-file{display:none;}
+
+.empty-list{text-align:center;padding:28px;color:var(--muted);font-size:13px;border:2px dashed var(--border);border-radius:12px;}
+
+/* GENERATE */
+.gen-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),#ff8c00);border:none;border-radius:12px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;cursor:pointer;transition:all .3s;margin-top:6px;}
+.gen-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(255,69,0,.4);}
+.gen-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* LOADING */
+.loading{display:none;text-align:center;padding:44px;}
+.loading.on{display:block;}
+.spinner{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
+.load-msg{font-size:13px;color:var(--accent);animation:pulse 1.6s ease infinite;}
+
+/* OUTPUT */
+.output{display:none;}
+.output.on{display:block;animation:fadeUp .5s ease both;}
+.out-layout{display:grid;grid-template-columns:1fr 268px;gap:22px;align-items:start;}
+@media(max-width:720px){.out-layout{grid-template-columns:1fr;}.phone-stick{position:static!important;}}
+.phone-stick{position:sticky;top:14px;}
+
+/* OUTPUT CARDS */
+.ocard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;}
+.ocard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
+.ocard-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);}
+.btn-row{display:flex;gap:5px;flex-wrap:wrap;}
+.abtn{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:5px 10px;color:var(--text);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.abtn:hover{border-color:var(--accent2);color:var(--accent2);}
+.abtn.save{border-color:var(--success);color:var(--success);display:none;}
+.abtn.ok{border-color:var(--success);color:var(--success);}
+.ocontent{font-size:12px;line-height:1.85;color:#d0d0e8;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto;padding-right:4px;}
+.ocontent.script-content{max-height:180px;}
+.ocontent[contenteditable="true"]{background:rgba(255,255,255,.03);border:1px solid var(--accent2);border-radius:8px;padding:10px;outline:none;max-height:300px;}
+.ocontent::-webkit-scrollbar{width:4px;}
+.ocontent::-webkit-scrollbar-track{background:var(--surface);border-radius:2px;}
+.ocontent::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.ocontent::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+.htags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.htag{background:rgba(255,69,0,.1);border:1px solid rgba(255,69,0,.3);border-radius:16px;padding:3px 11px;font-size:11px;color:var(--accent);cursor:pointer;}
+.htag:hover{background:rgba(255,69,0,.2);}
+.htag-edit{display:none;width:100%;background:rgba(255,255,255,.03);border:1px solid var(--accent2);border-radius:8px;padding:10px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;min-height:70px;resize:vertical;outline:none;margin-top:6px;}
+.aff-links a{display:block;color:var(--accent2);font-size:12px;margin-bottom:6px;text-decoration:none;}
+.aff-links a:hover{text-decoration:underline;}
+.reset-btn{width:100%;padding:12px;background:transparent;border:1px solid var(--border);border-radius:11px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-top:6px;}
+.reset-btn:hover{border-color:var(--text);color:var(--text);}
+
+/* ══ PHONE ══ */
+.phone-wrap{display:flex;flex-direction:column;align-items:center;}
+.phone-lbl{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);margin-bottom:8px;}
+.ptabs{display:flex;gap:5px;margin-bottom:10px;width:244px;}
+.ptab{flex:1;padding:6px;font-size:10px;font-weight:600;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .2s;}
+.ptab.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+.phone{width:244px;height:492px;background:#000;border-radius:38px;border:5px solid #1e1e1e;position:relative;overflow:hidden;box-shadow:0 0 0 1px #111,0 28px 60px rgba(0,0,0,.75);}
+.phone::before{content:'';position:absolute;left:-7px;top:80px;width:4px;height:26px;background:#1e1e1e;border-radius:3px 0 0 3px;z-index:60;}
+.phone::after{content:'';position:absolute;left:-7px;top:116px;width:4px;height:42px;background:#1e1e1e;border-radius:3px 0 0 3px;z-index:60;}
+.pwr{position:absolute;right:-7px;top:98px;width:4px;height:50px;background:#1e1e1e;border-radius:0 3px 3px 0;z-index:60;cursor:pointer;}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:68px;height:19px;background:#000;border-radius:0 0 12px 12px;z-index:50;}
+.sbar{position:absolute;top:3px;left:9px;right:9px;display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.8);font-weight:600;z-index:45;}
+
+/* Slides - add touch swipe support */
+.slides-wrap{position:absolute;inset:0;overflow:hidden;cursor:grab;}
+.slides-wrap:active{cursor:grabbing;}
+.slides-track{display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1);height:100%;}
+.slide{min-width:100%;height:100%;position:relative;overflow:hidden;}
+.slide svg{width:100%;height:100%;}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;}
+.vov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.22) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 72%,rgba(0,0,0,.95) 100%);z-index:2;}
+
+/* Dots */
+.sdots{position:absolute;top:26px;left:0;right:0;display:flex;justify-content:center;gap:3px;z-index:15;}
+.sdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .2s;}
+.sdot.on{background:#fff;width:13px;border-radius:3px;}
+
+/* Caption — scrollable, expandable on tap */
+.cap-ov{position:absolute;bottom:76px;left:7px;right:42px;z-index:12;}
+.cap-line{background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:600;line-height:1.55;padding:6px 9px;border-radius:7px;border-left:3px solid var(--accent);text-shadow:0 1px 3px rgba(0,0,0,.9);max-height:58px;overflow:hidden;transition:max-height .3s ease;cursor:pointer;position:relative;}
+.cap-line.expanded{max-height:160px;overflow-y:auto;}
+.cap-line::after{content:'▾ tap to expand';position:absolute;bottom:4px;right:7px;font-size:7px;color:rgba(255,255,255,.5);font-weight:400;}
+.cap-line.expanded::after{content:'▴ tap to collapse';}
+
+/* Buy button */
+.buy-ov{position:absolute;bottom:22px;left:7px;right:42px;z-index:12;}
+.buy-btn-phone{display:block;width:100%;padding:7px;border:none;border-radius:8px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.5px;text-align:center;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px rgba(0,0,0,.4);}
+.buy-btn-phone:hover{filter:brightness(1.1);transform:translateY(-1px);}
+
+/* TikTok UI */
+.tt-top{position:absolute;top:22px;left:0;right:0;display:flex;justify-content:center;gap:15px;z-index:10;font-size:10px;color:rgba(255,255,255,.65);font-weight:600;}
+.tt-top .at{color:#fff;border-bottom:2px solid #fff;padding-bottom:2px;}
+.tt-side{position:absolute;right:4px;bottom:90px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;}
+.ti{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:8px;cursor:pointer;transition:transform .15s;}
+.ti:active{transform:scale(.82);}
+.ti .ico{font-size:18px;}
+.av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;}
+.tt-bot{position:absolute;bottom:0;left:0;right:0;padding:4px 40px 80px 8px;z-index:10;}
+.tt-user{font-size:10px;font-weight:700;color:#fff;margin-bottom:2px;}
+.tt-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;}
+.tt-cap.expanded{display:block;-webkit-line-clamp:unset;max-height:80px;overflow-y:auto;}
+.tt-tags{margin-top:2px;font-size:9px;color:#69c9d0;font-weight:600;}
+.mus{display:flex;align-items:center;gap:3px;margin-top:2px;font-size:8px;color:rgba(255,255,255,.55);overflow:hidden;white-space:nowrap;}
+.mn{display:inline-block;animation:spin 3s linear infinite;}
+.ms{animation:scrollText 10s linear infinite;}
+.tt-prog{position:absolute;bottom:0;left:0;height:2px;background:#fff;z-index:20;}
+
+/* FB UI */
+.fb-top{position:absolute;top:21px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:10;}
+.fb-logo{font-size:11px;font-weight:800;color:#1877f2;}
+.fb-side{position:absolute;right:4px;bottom:88px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;}
+.fi{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:8px;cursor:pointer;transition:transform .15s;}
+.fi:active{transform:scale(.82);}
+.fi .ico{font-size:18px;}
+.fb-bot{position:absolute;bottom:0;left:0;right:0;padding:4px 40px 80px 8px;z-index:10;}
+.fb-user{display:flex;align-items:center;gap:4px;margin-bottom:2px;}
+.fb-av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#42a5f5);display:flex;align-items:center;justify-content:center;font-size:9px;border:1.5px solid #fff;}
+.fb-nm{font-size:10px;font-weight:700;color:#fff;}
+.fb-flw{font-size:8px;color:#fff;border:1px solid #fff;border-radius:3px;padding:1px 4px;margin-left:2px;}
+.fb-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;}
+.fb-cap.expanded{display:block;-webkit-line-clamp:unset;max-height:80px;overflow-y:auto;}
+.fb-tags{margin-top:2px;font-size:9px;color:#69c9d0;font-weight:600;}
+
+.toast{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);color:#fff;font-size:9px;padding:5px 12px;border-radius:10px;white-space:nowrap;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none;}
+
+/* Phone controls */
+.pctrl{margin-top:9px;display:flex;flex-direction:column;align-items:center;gap:6px;width:244px;}
+.crow{display:flex;gap:6px;}
+.cbtn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:11px;cursor:pointer;color:var(--text);font-family:'DM Sans',sans-serif;transition:all .2s;}
+.cbtn:hover{border-color:var(--accent2);color:var(--accent2);}
+.cbtn.on{border-color:var(--accent);color:var(--accent);background:rgba(255,69,0,.08);}
+.snav{display:flex;gap:4px;align-items:center;}
+.snbtn{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 9px;cursor:pointer;color:var(--muted);font-size:13px;transition:all .2s;}
+.snbtn:hover{border-color:var(--text);color:var(--text);}
+.lkdisp{font-size:11px;color:var(--muted);}
+.lkdisp span{color:var(--accent2);font-weight:700;}
+
+/* HOW TO POST GUIDE */
+.post-guide{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:10px;width:244px;}
+.post-guide-title{font-size:10px;font-weight:700;color:var(--accent2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+.post-guide-tabs{display:flex;gap:5px;margin-bottom:10px;}
+.pgtab{flex:1;padding:5px;font-size:10px;font-weight:600;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.pgtab.on{background:#ff004f22;border-color:#ff004f;color:#ff6b9d;}
+.pgtab.fb-tab.on{background:#1877f222;border-color:#1877f2;color:#4fc3f7;}
+.post-steps{font-size:10px;color:var(--muted);line-height:2;padding-left:2px;}
+.post-steps .step{display:flex;gap:7px;align-items:flex-start;margin-bottom:4px;}
+.post-steps .num{background:var(--accent);color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;margin-top:1px;}
+
+.disc{text-align:center;font-size:11px;color:var(--muted);margin-top:18px;line-height:1.7;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scrollText{0%{transform:translateX(60%);}100%{transform:translateX(-280%);}}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="badge">🇿🇦 Plug &amp; Play Affiliate Tool</div>
+  <h1>SA AFFILIATE<br>MACHINE</h1>
+  <p class="tagline">Load products from any store · Customer picks the best · You earn commission</p>
+</div>
+
+<!-- STEP 1: CATEGORY -->
+<div class="card">
+  <div class="step-label">Step 1 — Choose a Product Category</div>
+  <div class="cat-grid">
+    <button class="cat-btn" onclick="selCat(this,'Load Shedding & Solar','loadshedding')"><span class="icon">⚡</span>Load Shedding</button>
+    <button class="cat-btn" onclick="selCat(this,'Budget Tech & Smartphones','tech')"><span class="icon">📱</span>Budget Tech</button>
+    <button class="cat-btn" onclick="selCat(this,'Kitchen Gadgets & Appliances','kitchen')"><span class="icon">🍳</span>Kitchen Gadgets</button>
+    <button class="cat-btn" onclick="selCat(this,'Home Fitness Equipment','fitness')"><span class="icon">💪</span>Home Fitness</button>
+    <button class="cat-btn" onclick="selCat(this,'Car Accessories','car')"><span class="icon">🚗</span>Car Accessories</button>
+    <button class="cat-btn" onclick="selCat(this,'Baby & Kids Products','baby')"><span class="icon">👶</span>Baby & Kids</button>
+    <button class="cat-btn" onclick="selCat(this,'Beauty & Skincare','beauty')"><span class="icon">💄</span>Beauty</button>
+    <button class="cat-btn" onclick="selCat(this,'Home & Garden','home')"><span class="icon">🏡</span>Home & Garden</button>
+  </div>
+</div>
+
+<!-- STEP 2: PLATFORM -->
+<div class="card">
+  <div class="step-label">Step 2 — Choose Your Platform</div>
+  <div class="plat-row">
+    <button class="plat-btn" onclick="selPlat(this,'TikTok')"><span class="icon">🎵</span>TikTok</button>
+    <button class="plat-btn" onclick="selPlat(this,'Facebook Reels')"><span class="icon">📘</span>Facebook Reels</button>
+    <button class="plat-btn" onclick="selPlat(this,'Instagram Reels')"><span class="icon">📸</span>Instagram Reels</button>
+    <button class="plat-btn" onclick="selPlat(this,'YouTube Shorts')"><span class="icon">▶️</span>YouTube Shorts</button>
+  </div>
+</div>
+
+<!-- STEP 3: ADD PRODUCTS -->
+<div class="card" id="step3card">
+  <div class="step-label">Step 3 — Add Products From Any Store</div>
+
+  <!-- Store open buttons — auto-search category -->
+  <p style="font-size:11px;color:var(--muted);margin-bottom:9px;">① Click a store — it opens directly to your chosen category. Find a product you like:</p>
+  <div class="store-btns" id="storeBtns">
+    <a class="store-btn takealot" id="linkTakealot" href="#" target="_blank" rel="noopener">🛍️ Browse Takealot</a>
+    <a class="store-btn amazon" id="linkAmazon" href="#" target="_blank" rel="noopener">📦 Browse Amazon SA</a>
+    <a class="store-btn temu" id="linkTemu" href="#" target="_blank" rel="noopener">🛒 Browse Temu</a>
+    <a class="store-btn superbalist" id="linkSuperbalist" href="#" target="_blank" rel="noopener">👗 Browse Superbalist</a>
+    <a class="store-btn makro" id="linkMakro" href="#" target="_blank" rel="noopener">🏪 Browse Makro</a>
+  </div>
+
+  <!-- Paste URL and add -->
+  <div class="add-form">
+    <div class="add-form-title">② Copy the product page address from your browser bar and paste it here:</div>
+    <div class="add-row">
+      <input class="add-input" id="addUrl" type="text" placeholder="Paste product link here — e.g. https://www.takealot.com/trade-kite-sandwich-maker..."/>
+      <button class="add-btn" onclick="addProduct()" id="addBtn">+ ADD</button>
+    </div>
+    <div class="add-hint" id="addHint">
+      <strong>How:</strong> On the store page, click a product → copy the full address from your browser bar (Ctrl+C) → paste it above (Ctrl+V) → click + ADD. Repeat for each product you want to compare.
+    </div>
+  </div>
+
+  <!-- Added products list -->
+  <div id="productList">
+    <div class="empty-list" id="emptyMsg">No products added yet — add at least one product above to get started</div>
+  </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:8px;">💡 Add the same product from different stores so customers can compare prices and pick the best deal.</p>
+</div>
+
+<!-- GENERATE -->
+<button class="gen-btn" onclick="doGenerate()" id="genBtn">⚡ GENERATE EVERYTHING NOW</button>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <div class="load-msg" id="loadMsg">Writing your script...</div>
+</div>
+
+<!-- OUTPUT -->
+<div class="output" id="output">
+<div class="out-layout">
+
+<div>
+  <div class="ocard">
+    <div class="ocard-head">
+      <div class="ocard-title">🎬 VIDEO SCRIPT</div>
+      <div class="btn-row">
+        <button class="abtn" onclick="startEdit('scEl','eSc','sSc')" id="eSc">✏️ Edit</button>
+        <button class="abtn save" onclick="saveEdit('scEl','eSc','sSc')" id="sSc">💾 Save</button>
+        <button class="abtn" onclick="copyEl('scEl',this)">📋 Copy</button>
+        <button class="abtn" onclick="speakIt()" id="speakBtn">🔊 Play Aloud</button>
+      </div>
+    </div>
+    <div class="ocontent script-content" id="scEl"></div>
+  </div>
+
+  <div class="ocard">
+    <div class="ocard-head">
+      <div class="ocard-title">✍️ POST CAPTION</div>
+      <div class="btn-row">
+        <button class="abtn" onclick="startEdit('caEl','eCa','sCa')" id="eCa">✏️ Edit</button>
+        <button class="abtn save" onclick="saveEdit('caEl','eCa','sCa')" id="sCa">💾 Save</button>
+        <button class="abtn" onclick="copyEl('caEl',this)">📋 Copy</button>
+      </div>
+    </div>
+    <p style="font-size:10px;color:var(--muted);margin-bottom:8px;">This is the text description that appears under your video when you post it. Copy it and paste it into TikTok or Facebook when uploading your video.</p>
+    <div class="ocontent" id="caEl"></div>
+  </div>
+
+  <div class="ocard">
+    <div class="ocard-head">
+      <div class="ocard-title"># HASHTAGS</div>
+      <div class="btn-row">
+        <button class="abtn" onclick="editTags()" id="eTg">✏️ Edit</button>
+        <button class="abtn save" onclick="saveTags()" id="sTg">💾 Save</button>
+        <button class="abtn" onclick="copyTags(this)">📋 Copy All</button>
+      </div>
+    </div>
+    <p style="font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Hashtags are keywords that help TikTok and Facebook show your video to the right people. Copy all of them and paste them at the bottom of your post caption — they increase your reach for free. Click any individual hashtag to copy it.</p>
+    <div id="tagWrap"></div>
+    <textarea class="htag-edit" id="tagEdit" placeholder="One hashtag per line (without #)"></textarea>
+  </div>
+
+  <div class="ocard">
+    <div class="ocard-head"><div class="ocard-title">💡 POSTING TIPS</div>
+      <div class="btn-row">
+        <button class="abtn" onclick="startEdit('tiEl','eTi','sTi')" id="eTi">✏️ Edit</button>
+        <button class="abtn save" onclick="saveEdit('tiEl','eTi','sTi')" id="sTi">💾 Save</button>
+      </div>
+    </div>
+    <div class="ocontent" id="tiEl"></div>
+  </div>
+
+  <div class="ocard aff-links" style="border-color:var(--accent2);">
+    <div class="ocard-title" style="margin-bottom:8px;">🔗 REGISTER FOR AFFILIATE COMMISSION</div>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.7;">Sign up free at each store. They give you a personal tracking link. Every time someone buys through your link, you earn a commission:</p>
+    <a href="https://www.takealot.com/affiliates" target="_blank">→ Takealot Affiliate Programme</a>
+    <a href="https://affiliate-program.amazon.com" target="_blank">→ Amazon Associates Programme</a>
+    <a href="https://www.temu.com/affiliate-program.html" target="_blank">→ Temu Affiliate Programme</a>
+    <a href="https://superbalist.com" target="_blank">→ Superbalist Partner Programme</a>
+  </div>
+
+  <button class="gen-btn" onclick="doGenerate()">🔄 REGENERATE CONTENT</button>
+  <button class="reset-btn" onclick="resetAll()">↩ Start Over</button>
+</div>
+
+<!-- PHONE -->
+<div class="phone-stick">
+<div class="phone-wrap">
+  <div class="phone-lbl">📱 Live Preview</div>
+  <div class="ptabs">
+    <div class="ptab on" id="ttt" onclick="swUI('tt')">TikTok</div>
+    <div class="ptab" id="tfb" onclick="swUI('fb')">FB Reel</div>
+  </div>
+
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="pwr" onclick="pToast('🔔 Volume')"></div>
+    <div class="sbar"><span id="clk">9:41</span><span>📶 🔋</span></div>
+    <div class="slides-wrap"><div class="slides-track" id="track"></div></div>
+    <div class="vov"></div>
+    <div class="sdots" id="dots"></div>
+    <div class="cap-ov"><div class="cap-line" id="capLine">Add products and generate to preview...</div></div>
+    <div class="buy-ov"><a class="buy-btn-phone" id="buyBtn" href="#" target="_blank" style="background:linear-gradient(135deg,var(--accent),#ff8c00);">🛒 TAP TO BUY</a></div>
+
+    <!-- TikTok -->
+    <div id="ui-tt" style="position:absolute;inset:0;z-index:5;">
+      <div class="tt-top"><span>Following</span><span class="at">For You</span><span>LIVE</span></div>
+      <div class="tt-side">
+        <div class="ti"><div class="av">🎯</div><span>+</span></div>
+        <div class="ti" id="ttH" onclick="doLike(this)"><span class="ico">🤍</span><span id="ttL">24.5K</span></div>
+        <div class="ti" onclick="pToast('💬 Comments!')"><span class="ico">💬</span><span>342</span></div>
+        <div class="ti" onclick="pToast('↗️ Link copied!')"><span class="ico">↗️</span><span>Share</span></div>
+        <div class="ti" onclick="pToast('🔖 Saved!')"><span class="ico">🔖</span></div>
+      </div>
+      <div class="tt-bot">
+        <div class="tt-user">@sa_deals_daily</div>
+        <div class="tt-cap" id="ttC">Generate to see your caption...</div>
+        <div class="tt-tags" id="ttT">#SouthAfrica #Deals</div>
+        <div class="mus"><span class="mn">♫</span><span class="ms">SA Deals Daily · Original Audio</span></div>
+      </div>
+      <div class="tt-prog" id="ttProg"></div>
+    </div>
+
+    <!-- FB -->
+    <div id="ui-fb" style="position:absolute;inset:0;z-index:5;display:none;">
+      <div class="fb-top"><div class="fb-logo">f reels</div><span style="color:#fff;font-size:13px;">🔍 📷</span></div>
+      <div class="fb-side">
+        <div class="fi" id="fbH" onclick="doLike(this)"><span class="ico">🤍</span><span id="fbL">18.2K</span></div>
+        <div class="fi" onclick="pToast('💬 Comments!')"><span class="ico">💬</span><span>215</span></div>
+        <div class="fi" onclick="pToast('↗️ Link copied!')"><span class="ico">↗️</span><span>Share</span></div>
+        <div class="fi" onclick="pToast('⋯ Options')"><span class="ico">⋯</span></div>
+      </div>
+      <div class="fb-bot">
+        <div class="fb-user"><div class="fb-av">🎯</div><div class="fb-nm">SA Deals Daily</div><div class="fb-flw">+ Follow</div></div>
+        <div class="fb-cap" id="fbC">Generate to see your caption...</div>
+        <div class="fb-tags" id="fbT">#SouthAfrica #Deals</div>
+      </div>
+    </div>
+
+    <div class="toast" id="toastEl"></div>
+  </div>
+
+  <div class="pctrl">
+    <div class="crow">
+      <button class="cbtn" onclick="speakIt()" id="ttsBtn">🔊 Play Script</button>
+      <button class="cbtn" onclick="stopSpeak()">⏹ Stop</button>
+    </div>
+    <div class="snav" id="snav" style="display:none;">
+      <button class="snbtn" onclick="prevSlide()">‹ Prev</button>
+      <span id="scount" style="font-size:11px;color:var(--muted);padding:0 6px;">1/1</span>
+      <button class="snbtn" onclick="nextSlide()">Next ›</button>
+    </div>
+    <div class="lkdisp">❤️ <span id="lkc">24,500</span> likes</div>
+    <p style="font-size:9px;color:var(--muted);text-align:center;">← Swipe the phone left/right to see each product</p>
+    <p style="font-size:9px;color:var(--muted);text-align:center;">Tap the caption on the phone to expand it</p>
+  </div>
+
+  <!-- HOW TO POST GUIDE -->
+  <div class="post-guide">
+    <div class="post-guide-title">📲 How to post this on your phone</div>
+    <div class="post-guide-tabs">
+      <div class="pgtab on" id="pgTT" onclick="swPostGuide('tt')">🎵 TikTok</div>
+      <div class="pgtab fb-tab" id="pgFB" onclick="swPostGuide('fb')">📘 Facebook</div>
+    </div>
+
+    <div id="guide-tt">
+      <div class="post-steps">
+        <div class="step"><div class="num">1</div><div>Open TikTok on your phone and tap the <strong style="color:#fff;">+ button</strong> at the bottom</div></div>
+        <div class="step"><div class="num">2</div><div>Tap <strong style="color:#fff;">Upload</strong> and select your product video or photos from your gallery</div></div>
+        <div class="step"><div class="num">3</div><div>Tap <strong style="color:#fff;">Next</strong> — you will see a screen with a text box that says <strong style="color:#ff6b9d;">"Describe your video"</strong></div></div>
+        <div class="step"><div class="num">4</div><div>Tap that box, then <strong style="color:#fff;">paste your Post Caption</strong> (copy it from the left panel)</div></div>
+        <div class="step"><div class="num">5</div><div>At the end of the caption, <strong style="color:#fff;">paste your Hashtags</strong> (copy them from the left panel)</div></div>
+        <div class="step"><div class="num">6</div><div>Tap <strong style="color:#ff6b9d;">Post</strong> — your video goes live and reaches thousands of people!</div></div>
+      </div>
+    </div>
+
+    <div id="guide-fb" style="display:none;">
+      <div class="post-steps">
+        <div class="step"><div class="num">1</div><div>Open Facebook on your phone and tap <strong style="color:#fff;">Reels</strong> at the top of your feed</div></div>
+        <div class="step"><div class="num">2</div><div>Tap the <strong style="color:#fff;">+ Create Reel</strong> button and select your video from your gallery</div></div>
+        <div class="step"><div class="num">3</div><div>Tap <strong style="color:#fff;">Next</strong> — you will see a screen with a box that says <strong style="color:#4fc3f7;">"Write a description"</strong></div></div>
+        <div class="step"><div class="num">4</div><div>Tap that box, then <strong style="color:#fff;">paste your Post Caption</strong> (copy it from the left panel)</div></div>
+        <div class="step"><div class="num">5</div><div>After the caption, <strong style="color:#fff;">paste your Hashtags</strong> (copy them from the left panel)</div></div>
+        <div class="step"><div class="num">6</div><div>Tap <strong style="color:#4fc3f7;">Share</strong> — your Reel is live!</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<div class="disc">Replace product links in your caption with your personal affiliate tracking links before posting. Always disclose affiliate links to your audience.</div>
+</div>
+
+</div>
+
+<script>
+// ══ STATE ══
+let cat='', catKey='', plat='', products=[], slides=[], si=0, capTimer=null, capLines=[], capIdx=0, autoTimer=null, likes=24500, tags=[];
+
+// ══ CATEGORY SEARCH TERMS per store ══
+const CAT_SEARCH = {
+  loadshedding:{takealot:'load+shedding+solar+power',amazon:'solar+power+bank+inverter',temu:'solar+power+bank',superbalist:'',makro:'inverter+solar'},
+  tech:        {takealot:'smartphone+earbuds+budget',amazon:'budget+smartphone+tech',temu:'smartphone+accessories',superbalist:'tech+accessories',makro:'smartphone'},
+  kitchen:     {takealot:'kitchen+gadgets+air+fryer',amazon:'kitchen+gadgets+appliances',temu:'kitchen+gadgets',superbalist:'',makro:'kitchen+appliances'},
+  fitness:     {takealot:'fitness+equipment+dumbbells',amazon:'home+gym+equipment',temu:'fitness+equipment',superbalist:'fitness',makro:'gym'},
+  car:         {takealot:'car+accessories',amazon:'car+accessories',temu:'car+accessories',superbalist:'',makro:'car+accessories'},
+  baby:        {takealot:'baby+products+stroller',amazon:'baby+products',temu:'baby+products',superbalist:'baby',makro:'baby'},
+  beauty:      {takealot:'beauty+skincare+makeup',amazon:'skincare+beauty',temu:'skincare+beauty',superbalist:'beauty+skincare',makro:'beauty'},
+  home:        {takealot:'home+decor+garden',amazon:'home+garden',temu:'home+decor',superbalist:'home+decor',makro:'home+garden'}
+};
+
+// ══ STORE URL BUILDERS ══
+function storeUrl(store, term){
+  if(!term) return null;
+  const t = term;
+  const map = {
+    takealot:`https://www.takealot.com/all?q=${t}&qsrc=1`,
+    amazon:  `https://www.amazon.co.za/s?k=${t}`,
+    temu:    `https://www.temu.com/search_result.html?search_key=${t.replace(/\+/g,' ')}&search_method=user`,
+    superbalist:`https://superbalist.com/search#?q=${t.replace(/\+/g,'%20')}`,
+    makro:   `https://www.makro.co.za/search?text=${t}`
+  };
+  return map[store]||'#';
+}
+
+// ══ CLOCK ══
+function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours()+':'+(n.getMinutes()<10?'0':'')+n.getMinutes();}
+setInterval(tick,10000);tick();
+
+// ══ SELECTORS ══
+function selCat(btn,label,key){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  cat=label; catKey=key;
+  // Update all store links to search for this category
+  const s=CAT_SEARCH[key]||{};
+  ['takealot','amazon','temu','superbalist','makro'].forEach(store=>{
+    const term=s[store];
+    const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
+    if(!el) return;
+    if(term){ el.href=storeUrl(store,term); el.style.opacity='1'; }
+    else { el.href='https://www.'+store+'.com'; el.style.opacity='.5'; }
+  });
+  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it above (Ctrl+V) → Click + ADD`;
+}
+
+function selPlat(btn,val){
+  document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); plat=val;
+  swUI(val==='Facebook Reels'?'fb':'tt');
+}
+
+function swUI(t){
+  document.getElementById('ui-tt').style.display = t==='tt'?'block':'none';
+  document.getElementById('ui-fb').style.display = t==='fb'?'block':'none';
+  document.getElementById('ttt').classList.toggle('on',t==='tt');
+  document.getElementById('tfb').classList.toggle('on',t==='fb');
+}
+
+// ══ STORE COLOURS ══
+const STORE_COLORS = {
+  takealot:'#e53935', amazon:'#ff9900', temu:'#ff6b35',
+  superbalist:'#444', makro:'#00457c', faithful:'#2e7d32'
+};
+const STORE_LABELS = {
+  takealot:'Takealot', amazon:'Amazon SA', temu:'Temu',
+  superbalist:'Superbalist', makro:'Makro', faithful:'Faithful2Nature'
+};
+
+function guessStore(url){
+  if(url.includes('takealot')) return 'takealot';
+  if(url.includes('amazon'))   return 'amazon';
+  if(url.includes('temu'))     return 'temu';
+  if(url.includes('superbalist')) return 'superbalist';
+  if(url.includes('makro'))    return 'makro';
+  if(url.includes('faithful')) return 'faithful';
+  return 'other';
+}
+
+function parseSlug(url){
+  try{
+    const parts=new URL(url).pathname.split('/').filter(p=>p&&p.length>3&&!/^[A-Z0-9]{6,}$/.test(p)&&!/^\d+$/.test(p));
+    return (parts[0]||'').replace(/-/g,' ').replace(/_/g,' ').trim();
+  }catch(e){return '';}
+}
+
+// ══ ADD PRODUCT ══
+async function addProduct(){
+  const url=document.getElementById('addUrl').value.trim();
+  if(!url||!url.startsWith('http')){ alert('Please paste a full product link starting with https://'); return; }
+  if(!cat){ alert('Please choose a category in Step 1 first!'); return; }
+
+  const btn=document.getElementById('addBtn');
+  btn.disabled=true; btn.textContent='...';
+
+  const store=guessStore(url);
+  const slug=parseSlug(url);
+
+  let name=slug||'Product', price='See site for price', emoji='📦';
+
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:200,
+        messages:[{role:'user',content:`Product URL: "${url}". Store: ${store}. URL slug: "${slug}". Category: ${cat}.
+Identify this product. Respond ONLY with valid JSON, no markdown:
+{"name":"Clean product name max 55 chars","price":"Estimated SA price e.g. R 399 or R 1299","emoji":"Best single emoji"}`}]
+      })
+    });
+    const d=await res.json();
+    const info=JSON.parse(d.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
+    name=info.name||slug||'Product';
+    price=info.price||'See site';
+    emoji=info.emoji||'📦';
+  }catch(e){}
+
+  const id='prod_'+Date.now();
+  products.push({id,name,price,emoji,store,url,imgSrc:null});
+  renderProductList();
+  buildSlides();
+
+  document.getElementById('addUrl').value='';
+  btn.disabled=false; btn.textContent='+ ADD';
+  pToast(`✅ ${name} added!`);
+}
+
+// ══ RENDER PRODUCT LIST ══
+function renderProductList(){
+  const wrap=document.getElementById('productList');
+  const empty=document.getElementById('emptyMsg');
+  if(products.length===0){ empty.style.display='block'; return; }
+  empty.style.display='none';
+  wrap.innerHTML='<div class="empty-list" id="emptyMsg" style="display:none;"></div>';
+
+  products.forEach((p,i)=>{
+    const card=document.createElement('div');
+    card.className='prod-card loaded';
+    card.id='card_'+p.id;
+
+    const storeColor=STORE_COLORS[p.store]||'#444';
+    const storeLabel=STORE_LABELS[p.store]||p.store;
+    const hasImg = p.imgSrc ? true : false;
+
+    card.innerHTML=`
+      <div class="prod-emoji" id="emoji_${p.id}" style="cursor:pointer;" title="Click to change photo" onclick="document.getElementById('fileInput_${p.id}').click()">
+        ${hasImg ? `<img src="${p.imgSrc}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">` : p.emoji}
+        <div style="position:absolute;bottom:0;right:0;width:18px;height:18px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">📷</div>
+      </div>
+      <input type="file" id="fileInput_${p.id}" accept="image/*" style="display:none;" onchange="addProductImage('${p.id}',this)">
+      <div class="prod-details">
+        <div class="prod-name">${p.name}</div>
+
+        <!-- EDITABLE PRICE ROW -->
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+          <div class="prod-price" id="priceDisplay_${p.id}">${p.price}</div>
+          <button onclick="startPriceEdit('${p.id}')" id="editPriceBtn_${p.id}"
+            style="font-size:9px;padding:2px 7px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;"
+            onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">✏️ Fix price</button>
+        </div>
+        <div id="priceEditRow_${p.id}" style="display:none;align-items:center;gap:6px;margin-bottom:4px;">
+          <input id="priceInput_${p.id}" type="text" value="${p.price}"
+            style="width:110px;background:var(--surface);border:1px solid var(--accent2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;outline:none;"
+            onkeydown="if(event.key==='Enter')savePrice('${p.id}')">
+          <button onclick="savePrice('${p.id}')"
+            style="padding:4px 10px;background:var(--success);border:none;border-radius:6px;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">✓ Save</button>
+        </div>
+
+        <div class="prod-store" style="color:${storeColor};font-weight:700;">📍 ${storeLabel}</div>
+        <a class="prod-link" href="${p.url}" target="_blank">View product page →</a>
+
+        <!-- PHOTO INSTRUCTIONS -->
+        <div style="margin-top:7px;padding:8px 10px;background:var(--bg);border-radius:7px;border:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px;" id="imgStatus_${p.id}">
+            ${hasImg ? '<span style="color:var(--success)">✅ Photo loaded on phone screen</span>' : '<span style="color:var(--accent2)">📷 No photo yet — click the emoji/photo box on the left to upload</span>'}
+          </div>
+          <div style="font-size:9px;color:var(--muted);line-height:1.7;">
+            <strong style="color:var(--text);">How to add the product photo:</strong><br>
+            1. Click <strong style="color:var(--accent2);">"View product page →"</strong> above<br>
+            2. On the store page, right-click the main product photo<br>
+            3. Click <strong style="color:var(--text);">"Save image as"</strong> and save it to your PC<br>
+            4. Click the <strong style="color:var(--accent2);">📷 box on the left</strong> to upload that saved photo
+          </div>
+        </div>
+      </div>
+      <button class="remove-prod" onclick="removeProduct('${p.id}')">✕ Remove</button>
+    `;
+    // Make emoji box relative for the camera badge
+    const emojiBox = card.querySelector('.prod-emoji');
+    if(emojiBox) emojiBox.style.position='relative';
+    wrap.appendChild(card);
+  });
+}
+
+function addProductImage(id, input){
+  const file=input.files[0];
+  if(!file) return;
+  const r=new FileReader();
+  r.onload=ev=>{ applyProductImage(id, ev.target.result); };
+  r.readAsDataURL(file);
+}
+
+// ══ PRICE EDITING ══
+function startPriceEdit(id){
+  document.getElementById('priceDisplay_'+id).style.display='none';
+  document.getElementById('editPriceBtn_'+id).style.display='none';
+  const row=document.getElementById('priceEditRow_'+id);
+  row.style.display='flex';
+  document.getElementById('priceInput_'+id).focus();
+}
+
+function savePrice(id){
+  const input=document.getElementById('priceInput_'+id);
+  const newPrice=input.value.trim();
+  if(!newPrice) return;
+  // Update product data
+  const prod=products.find(p=>p.id===id);
+  if(prod) prod.price=newPrice;
+  // Update display
+  document.getElementById('priceDisplay_'+id).textContent=newPrice;
+  document.getElementById('priceDisplay_'+id).style.display='block';
+  document.getElementById('editPriceBtn_'+id).style.display='inline-flex';
+  document.getElementById('priceEditRow_'+id).style.display='none';
+  // Rebuild phone slides with correct price
+  buildSlides();
+  pToast('✅ Price updated to '+newPrice);
+}
+
+function applyProductImage(id, src){
+  const prod=products.find(p=>p.id===id);
+  if(!prod) return;
+  prod.imgSrc=src;
+  // Update thumbnail in card
+  const emojiBox=document.getElementById('emoji_'+id);
+  if(emojiBox){
+    emojiBox.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" onerror="this.parentElement.innerHTML='${prod.emoji}'">
+    <div style="position:absolute;bottom:0;right:0;width:18px;height:18px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">✅</div>`;
+  }
+  // Update status
+  const status=document.getElementById('imgStatus_'+id);
+  if(status) status.innerHTML='<span style="color:var(--success)">✅ Photo loaded on phone screen</span>';
+  buildSlides();
+  pToast('✅ Photo loaded onto phone screen!');
+}
+
+function removeProduct(id){
+  products=products.filter(p=>p.id!==id);
+  renderProductList();
+  buildSlides();
+}
+
+// ══ BUILD SLIDES — one per product ══
+function buildSlides(){
+  const track=document.getElementById('track');
+  track.innerHTML='';
+  slides=[];
+
+  if(products.length===0){
+    document.getElementById('snav').style.display='none';
+    si=0;
+    buildDots();
+    return;
+  }
+
+  products.forEach((p,idx)=>{
+    const frame=document.createElement('div');
+    frame.className='slide';
+
+    if(p.imgSrc){
+      // Real photo
+      const img=document.createElement('img');
+      img.src=p.imgSrc;
+      frame.appendChild(img);
+    } else {
+      // SVG graphic
+      const id='g'+Math.random().toString(36).slice(2);
+      const colors=[
+        ['#1a1a2e','#16213e'],['#1a3a1a','#2d5a1b'],['#2a1a2a','#5a2a6a'],
+        ['#1a2a3a','#1a4a6a'],['#3a1a1a','#6a2a1a'],['#1a3a2a','#1a6a4a']
+      ];
+      const [c1,c2]=colors[idx%colors.length];
+      const label=p.name.substring(0,24)+(p.name.length>24?'...':'');
+      const storeLabel=STORE_LABELS[p.store]||p.store;
+      const storeColor=STORE_COLORS[p.store]||'#ff4500';
+      frame.innerHTML=`<svg viewBox="0 0 244 492" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="${id}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
+        </linearGradient></defs>
+        <rect width="244" height="492" fill="url(#${id})"/>
+        <circle cx="190" cy="80" r="80" fill="rgba(255,255,255,.04)"/>
+        <circle cx="40" cy="400" r="90" fill="rgba(255,255,255,.03)"/>
+        <rect x="47" y="65" width="150" height="180" rx="18" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+        <text x="122" y="178" text-anchor="middle" font-size="70">${p.emoji}</text>
+        <text x="122" y="284" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">${label}</text>
+        <text x="122" y="306" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="#00e096">${p.price}</text>
+        <rect x="72" y="315" width="100" height="20" rx="10" fill="${storeColor}" opacity=".9"/>
+        <text x="122" y="329" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">${storeLabel}</text>
+        <text x="122" y="360" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,.45)">TAP BUTTON BELOW TO BUY ↓</text>
+      </svg>`;
+    }
+
+    track.appendChild(frame);
+    slides.push({frame, url:p.url, store:p.store, price:p.price});
+  });
+
+  si=0;
+  renderSlidePos();
+  document.getElementById('snav').style.display=slides.length>1?'flex':'none';
+  if(autoTimer) clearInterval(autoTimer);
+  if(slides.length>1) autoTimer=setInterval(()=>{ si=(si+1)%slides.length; renderSlidePos(); },4500);
+}
+
+function renderSlidePos(){
+  document.getElementById('track').style.transform=`translateX(-${si*100}%)`;
+  document.getElementById('scount').textContent=`${si+1}/${slides.length}`;
+  // Update buy button for current slide
+  if(slides[si]){
+    const btn=document.getElementById('buyBtn');
+    const storeColor=STORE_COLORS[slides[si].store]||'#ff4500';
+    btn.href=slides[si].url;
+    btn.style.background=`linear-gradient(135deg,${storeColor},${storeColor}cc)`;
+    btn.textContent=`🛒 BUY ON ${(STORE_LABELS[slides[si].store]||'STORE').toUpperCase()} — ${slides[si].price}`;
+    // Update TT progress
+    const prog=document.getElementById('ttProg');
+    prog.style.transition='width 4.5s linear';
+    prog.style.width='0%';
+    setTimeout(()=>prog.style.width='100%',50);
+  }
+  buildDots();
+}
+
+function buildDots(){
+  const wrap=document.getElementById('dots'); wrap.innerHTML='';
+  slides.forEach((_,i)=>{ const d=document.createElement('div'); d.className='sdot'+(i===si?' on':''); wrap.appendChild(d); });
+}
+
+function prevSlide(){ if(si>0){si--;renderSlidePos();} }
+function nextSlide(){ if(si<slides.length-1){si++;renderSlidePos();} }
+
+// ══ CAPTION ANIMATION ══
+function startCapAnim(lines){
+  if(capTimer) clearInterval(capTimer);
+  capLines=lines.filter(l=>l.trim().length>3).slice(0,12); capIdx=0;
+  function show(){
+    const clean=capLines[capIdx%capLines.length].replace(/\[SEC\s*\d+[:\]]/gi,'').trim();
+    if(clean.length>2) document.getElementById('capLine').textContent=clean;
+    capIdx++;
+  }
+  show(); capTimer=setInterval(show,3500);
+}
+
+// ══ GENERATE ══
+async function doGenerate(){
+  if(!cat)             { alert('Please choose a category in Step 1!'); return; }
+  if(!plat)            { alert('Please choose a platform in Step 2!'); return; }
+  if(products.length===0){ alert('Please add at least one product in Step 3!'); return; }
+
+  document.getElementById('genBtn').disabled=true;
+  document.getElementById('output').classList.remove('on');
+  document.getElementById('loading').classList.add('on');
+
+  const msgs=['✍️ Writing your video script...','🏷️ Generating hashtags...','📝 Crafting your caption...','✨ Almost ready...'];
+  let mi=0; const mi_=setInterval(()=>{ mi=(mi+1)%msgs.length; document.getElementById('loadMsg').textContent=msgs[mi]; },1800);
+
+  const productList=products.map((p,i)=>`Product ${i+1}: ${p.name} — ${p.price} at ${STORE_LABELS[p.store]||p.store} (${p.url})`).join('\n');
+
+  try{
+    const prompt=`You are a professional social media content creator specialising in affiliate marketing for a South African audience.
+
+Category: ${cat}
+Platform: ${plat}
+Products being promoted:
+${productList}
+
+Write all content in clear, professional UK English. Do not use slang. Write naturally and engagingly, as if speaking to everyday South African shoppers. Mention prices in Rands (R).
+${products.length>1?'Highlight that customers can compare prices across stores and tap the one they prefer.':''}
+
+Respond ONLY with valid JSON — no markdown, no backticks:
+{
+  "script": "Full 45-60 second spoken script. Each line on its own line starting with [SEC X:]. Mention product names and prices. If multiple products, compare them. End with clear call to action.",
+  "caption": "3-4 sentences. Mention the products and prices. If multiple, say customers can swipe to compare. Ends with: Tap the link to buy.",
+  "hashtags": ["20","relevant","lowercase","hashtags","no","hash","symbol","include","southafrica"],
+  "tips": "3 numbered practical tips for posting this content on ${plat}."
+}`;
+
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})
+    });
+    const data=await res.json();
+    const p=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
+
+    clearInterval(mi_);
+    document.getElementById('loading').classList.remove('on');
+
+    document.getElementById('scEl').textContent=p.script;
+    document.getElementById('caEl').textContent=p.caption;
+    document.getElementById('tiEl').textContent=p.tips;
+    tags=p.hashtags; renderTags();
+
+    const sc=p.caption.substring(0,100)+(p.caption.length>100?'...':'');
+    const st='#'+p.hashtags.slice(0,4).join(' #');
+    ['ttC','fbC'].forEach(id=>document.getElementById(id).textContent=sc);
+    ['ttT','fbT'].forEach(id=>document.getElementById(id).textContent=st);
+
+    startCapAnim(p.script.split('\n'));
+    swUI(plat==='Facebook Reels'?'fb':'tt');
+    document.getElementById('output').classList.add('on');
+    document.getElementById('output').scrollIntoView({behavior:'smooth',block:'start'});
+
+  }catch(err){
+    clearInterval(mi_);
+    document.getElementById('loading').classList.remove('on');
+    alert('Something went wrong — please try again.');
+    console.error(err);
+  }
+  document.getElementById('genBtn').disabled=false;
+}
+
+// ══ EDIT / SAVE / COPY ══
+function startEdit(el,eb,sb){
+  const e=document.getElementById(el); e.contentEditable='true'; e.focus();
+  document.getElementById(eb).style.display='none';
+  document.getElementById(sb).style.display='inline-flex';
+}
+function saveEdit(el,eb,sb){
+  const e=document.getElementById(el); e.contentEditable='false';
+  document.getElementById(eb).style.display='inline-flex';
+  document.getElementById(sb).style.display='none';
+  if(el==='caEl'){const t=e.textContent.substring(0,100);['ttC','fbC'].forEach(id=>document.getElementById(id).textContent=t);}
+}
+function copyEl(id,btn){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    const o=btn.textContent; btn.textContent='✓ Copied!'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);
+  });
+}
+function renderTags(){
+  const w=document.getElementById('tagWrap'); w.innerHTML='';
+  const div=document.createElement('div'); div.className='htags';
+  tags.forEach(t=>{ const s=document.createElement('span'); s.className='htag'; s.textContent='#'+t; s.onclick=()=>navigator.clipboard.writeText('#'+t); div.appendChild(s); });
+  w.appendChild(div);
+  const top='#'+tags.slice(0,4).join(' #');
+  ['ttT','fbT'].forEach(id=>document.getElementById(id).textContent=top);
+}
+function editTags(){
+  document.getElementById('tagWrap').style.display='none';
+  const a=document.getElementById('tagEdit'); a.value=tags.join('\n'); a.style.display='block';
+  document.getElementById('eTg').style.display='none'; document.getElementById('sTg').style.display='inline-flex';
+}
+function saveTags(){
+  tags=document.getElementById('tagEdit').value.split('\n').map(t=>t.trim().replace(/^#/,'')).filter(Boolean);
+  document.getElementById('tagEdit').style.display='none'; document.getElementById('tagWrap').style.display='block';
+  document.getElementById('eTg').style.display='inline-flex'; document.getElementById('sTg').style.display='none';
+  renderTags();
+}
+function copyTags(btn){
+  navigator.clipboard.writeText(tags.map(h=>'#'+h).join(' ')).then(()=>{
+    const o=btn.textContent; btn.textContent='✓ Copied!'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);
+  });
+}
+
+// ══ TTS ══
+function speakIt(){
+  if(!window.speechSynthesis){ pToast('TTS not supported'); return; }
+  stopSpeak();
+  const raw=document.getElementById('scEl').textContent;
+  const clean=raw.replace(/\[SEC\s*\d+[:\]]/gi,'').replace(/\n/g,' ').trim();
+  if(!clean){ pToast('Generate content first!'); return; }
+  const u=new SpeechSynthesisUtterance(clean);
+  u.rate=1.05; u.lang='en-GB';
+  const voices=window.speechSynthesis.getVoices();
+  const v=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en-'));
+  if(v) u.voice=v;
+  u.onstart=()=>document.getElementById('ttsBtn').classList.add('on');
+  u.onend=()=>document.getElementById('ttsBtn').classList.remove('on');
+  window.speechSynthesis.speak(u);
+  pToast('🔊 Reading your script...');
+}
+function stopSpeak(){ if(window.speechSynthesis) window.speechSynthesis.cancel(); document.getElementById('ttsBtn').classList.remove('on'); }
+
+// ══ LIKE ══
+function doLike(el){
+  const ico=el.querySelector('.ico'); const was=ico.textContent==='❤️';
+  ico.textContent=was?'🤍':'❤️'; likes=was?likes-1:likes+1;
+  const fmt=likes>=1000?(likes/1000).toFixed(1)+'K':likes;
+  document.getElementById('ttL').textContent=fmt;
+  document.getElementById('lkc').textContent=likes.toLocaleString();
+  pToast(was?'Like removed':'❤️ Liked!');
+}
+
+// ══ TOAST ══
+function pToast(msg){
+  const t=document.getElementById('toastEl'); t.textContent=msg; t.style.opacity='1';
+  setTimeout(()=>t.style.opacity='0',2200);
+}
+
+// ══ RESET ══
+function resetAll(){
+  cat=''; catKey=''; plat=''; products=[]; slides=[]; tags=[];
+  stopSpeak();
+  if(capTimer) clearInterval(capTimer);
+  if(autoTimer) clearInterval(autoTimer);
+  document.querySelectorAll('.cat-btn,.plat-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('addUrl').value='';
+  document.getElementById('productList').innerHTML='<div class="empty-list" id="emptyMsg">No products added yet — add at least one product above to get started</div>';
+  document.getElementById('track').innerHTML='';
+  document.getElementById('dots').innerHTML='';
+  document.getElementById('output').classList.remove('on');
+  document.getElementById('capLine').textContent='Add products and generate to preview...';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══ POST GUIDE TABS ══
+function swPostGuide(tab){
+  document.getElementById('guide-tt').style.display = tab==='tt'?'block':'none';
+  document.getElementById('guide-fb').style.display = tab==='fb'?'block':'none';
+  document.getElementById('pgTT').classList.toggle('on', tab==='tt');
+  document.getElementById('pgFB').classList.toggle('on', tab==='fb');
+}
+
+// ══ TOUCH SWIPE on phone ══
+(function(){
+  let startX=0, isDragging=false;
+  const wrap = ()=>document.getElementById('track')?.parentElement;
+  document.addEventListener('mousedown', e=>{
+    if(!wrap()||!e.target.closest('.slides-wrap')) return;
+    startX=e.clientX; isDragging=true;
+  });
+  document.addEventListener('mousemove', e=>{ if(!isDragging) return; });
+  document.addEventListener('mouseup', e=>{
+    if(!isDragging) return; isDragging=false;
+    const diff=startX-e.clientX;
+    if(Math.abs(diff)>30){ diff>0?nextSlide():prevSlide(); }
+  });
+  document.addEventListener('touchstart', e=>{
+    if(!e.target.closest('.slides-wrap')) return;
+    startX=e.touches[0].clientX;
+  }, {passive:true});
+  document.addEventListener('touchend', e=>{
+    if(!e.target.closest('.slides-wrap')) return;
+    const diff=startX-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>30){ diff>0?nextSlide():prevSlide(); }
+  }, {passive:true});
+})();
+
+// ══ EXPANDABLE CAPTION on phone ══
+document.addEventListener('click', e=>{
+  const capLine=e.target.closest('.cap-line');
+  if(capLine){ capLine.classList.toggle('expanded'); return; }
+  const ttCap=e.target.closest('.tt-cap');
+  if(ttCap){ ttCap.classList.toggle('expanded'); return; }
+  const fbCap=e.target.closest('.fb-cap');
+  if(fbCap){ fbCap.classList.toggle('expanded'); }
+});
+
+// ══ PWA INSTALL LOGIC ══
+let deferredPrompt = null;
+
+// Register inline service worker for offline caching
+if('serviceWorker' in navigator){
+  const swCode=`
+    const CACHE='sa-affiliate-v1';
+    self.addEventListener('install',e=>{self.skipWaiting();});
+    self.addEventListener('activate',e=>{self.clients.claim();});
+    self.addEventListener('fetch',e=>{
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+    });
+  `;
+  try{
+    const blob=new Blob([swCode],{type:'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+  }catch(e){}
+}
+
+// Android/Chrome — capture native install prompt
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  setTimeout(()=>document.getElementById('installBanner').classList.add('show'),3000);
+});
+
+// iOS — show manual instructions after 3s if not already installed
+(function(){
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=window.navigator.standalone===true;
+  if(isIOS&&!isStandalone){
+    setTimeout(()=>document.getElementById('iosModal').classList.add('show'),3000);
+  }
+})();
+
+function doInstall(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(c=>{
+      if(c.outcome==='accepted'){ dismissBanner(); pToast('✅ App installed! Find it on your home screen.'); }
+      deferredPrompt=null;
+    });
+  } else {
+    dismissBanner();
+    document.getElementById('iosModal').classList.add('show');
+  }
+}
+
+function dismissBanner(){
+  document.getElementById('installBanner').classList.remove('show');
+}
+
+window.addEventListener('appinstalled',()=>{
+  dismissBanner();
+  pToast('🎉 SA Affiliate Machine installed!');
+});
+
+if(window.speechSynthesis) window.speechSynthesis.getVoices();
+</script>
+<!-- PWA INSTALL BANNER (Android/Chrome) -->
+<div class="install-banner" id="installBanner">
+  <div class="app-icon">🤑</div>
+  <div class="banner-text">
+    <div class="banner-title">SA Affiliate Machine</div>
+    <div class="banner-sub">Install as an app — works offline, no browser bar</div>
+  </div>
+  <button class="install-btn" onclick="doInstall()">INSTALL</button>
+  <button class="dismiss-btn" onclick="dismissBanner()">✕</button>
+</div>
+
+<!-- iOS INSTALL INSTRUCTIONS MODAL -->
+<div class="ios-modal" id="iosModal">
+  <div class="ios-modal-box">
+    <h3>📱 ADD TO HOME SCREEN</h3>
+    <div class="ios-step">
+      <div class="ios-num">1</div>
+      <div>Tap the <strong>Share button</strong> at the bottom of your Safari browser (the box with an arrow pointing up ↑)</div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">2</div>
+      <div>Scroll down and tap <strong>"Add to Home Screen"</strong></div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">3</div>
+      <div>Tap <strong>"Add"</strong> in the top right corner</div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">4</div>
+      <div>The app icon appears on your home screen — tap it to open like a real app!</div>
+    </div>
+    <button class="ios-close" onclick="document.getElementById('iosModal').classList.remove('show')">GOT IT — CLOSE</button>
+  </div>
+</div>
+
+</body>
+</html>
