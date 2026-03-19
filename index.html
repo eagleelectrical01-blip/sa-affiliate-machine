@@ -322,6 +322,17 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
   </div>
 </div>
 
+<!-- STEP 2B: VIDEO STYLE -->
+<div class="card">
+  <div class="step-label">Step 2B — Choose Video Style</div>
+  <div class="plat-row" style="flex-wrap:wrap;">
+    <button class="plat-btn" onclick="selStyle(this,'Problem/Solution hook')" style="min-width:130px;"><span class="icon">🎯</span>Problem / Solution</button>
+    <button class="plat-btn" onclick="selStyle(this,'Top 5 list countdown')" style="min-width:130px;"><span class="icon">🔢</span>Top 5 List</button>
+    <button class="plat-btn" onclick="selStyle(this,'Unboxing & honest review')" style="min-width:130px;"><span class="icon">📦</span>Unboxing Review</button>
+    <button class="plat-btn" onclick="selStyle(this,'Budget vs Premium comparison')" style="min-width:130px;"><span class="icon">⚖️</span>Budget vs Premium</button>
+  </div>
+</div>
+
 <!-- STEP 3: ADD PRODUCTS -->
 <div class="card" id="step3card">
   <div class="step-label">Step 3 — Add Products From Any Store</div>
@@ -594,10 +605,50 @@ function selCat(btn,label,key){
   document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it above (Ctrl+V) → Click + ADD`;
 }
 
+function selStyle(btn,val){
+  document.querySelectorAll('.plat-btn').forEach(b=>{ if(b.onclick&&b.onclick.toString().includes('selStyle')) b.classList.remove('on'); });
+  btn.classList.add('on');
+  window._selectedStyle=val;
+}
+
 function selPlat(btn,val){
-  document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.plat-btn').forEach(b=>{ if(b.onclick&&b.onclick.toString().includes('selPlat')) b.classList.remove('on'); });
   btn.classList.add('on'); plat=val;
   swUI(val==='Facebook Reels'?'fb':'tt');
+}
+
+// ══ ADD PRODUCT (offline — no API, uses URL slug) ══
+const EMOJI_MAP = {
+  loadshedding:'⚡', tech:'📱', kitchen:'🍳', fitness:'💪',
+  car:'🚗', baby:'👶', beauty:'💄', home:'🏡'
+};
+
+async function addProduct(){
+  const url=document.getElementById('addUrl').value.trim();
+  if(!url||!url.startsWith('http')){ alert('Please paste a full product link starting with https://'); return; }
+  if(!cat){ alert('Please choose a category in Step 1 first!'); return; }
+
+  const btn=document.getElementById('addBtn');
+  btn.disabled=true; btn.textContent='...';
+
+  const store=guessStore(url);
+  const slug=parseSlug(url);
+
+  // Clean up slug into readable name
+  const name = slug
+    ? slug.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ').substring(0,55)
+    : cat + ' Product';
+
+  const emoji = EMOJI_MAP[catKey] || '📦';
+
+  const id='prod_'+Date.now();
+  products.push({id, name, price:'See site for price', emoji, store, url, imgSrc:null});
+  renderProductList();
+  buildSlides();
+
+  document.getElementById('addUrl').value='';
+  btn.disabled=false; btn.textContent='+ ADD';
+  pToast(`✅ ${name} added! Remember to fix the price on the card.`);
 }
 
 function swUI(t){
@@ -888,8 +939,130 @@ function buildDots(){
 function prevSlide(){ if(si>0){si--;renderSlidePos();} }
 function nextSlide(){ if(si<slides.length-1){si++;renderSlidePos();} }
 
-// ══ CAPTION ANIMATION ══
-function startCapAnim(lines){
+// ══ OFFLINE CONTENT GENERATION ══
+// Fully works without internet — no API needed
+
+const SCRIPTS = {
+  'Problem/Solution hook': (prods, cat, plat) => {
+    const p1 = prods[0];
+    const multi = prods.length > 1;
+    const compare = multi ? prods.map(p=>`${p.name} from ${STORE_LABELS[p.store]||p.store} at ${p.price}`).join(', and ') : '';
+    return `[SEC 0:] Are you tired of overpaying for ${cat}? I have found exactly what you need.
+[SEC 5:] Let me show you the best options available right now — and you can tap to buy directly.
+[SEC 10:] First up — ${p1.name}. This is priced at ${p1.price} on ${STORE_LABELS[p1.store]||p1.store}.
+[SEC 18:] This is genuinely one of the best value options I have come across for ${cat}.
+[SEC 25:] ${multi ? `And there is more — I am also showing you ${compare} so you can compare and choose the best deal.` : `The quality is excellent and the price is hard to beat anywhere in South Africa.`}
+[SEC 35:] All you need to do is tap the buy button on the product you want — it takes you straight to the store.
+[SEC 42:] No searching, no hassle — just tap and buy.
+[SEC 48:] The link is in my bio. Tap it, pick your favourite, and get it delivered.
+[SEC 55:] Do not miss out — these prices will not last forever.`;
+  },
+
+  'Top 5 list countdown': (prods, cat, plat) => {
+    const lines = [`[SEC 0:] Here are the top ${Math.min(prods.length, 5)} ${cat} products you need to know about right now.`];
+    prods.slice(0,5).forEach((p,i) => {
+      lines.push(`[SEC ${10+(i*10)}:] Number ${i+1} — ${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}.`);
+    });
+    lines.push(`[SEC ${10+(prods.length*10)}:] Every single one of these is available right now — tap the buy button to go straight to the store.`);
+    lines.push(`[SEC ${15+(prods.length*10)}:] Link is in my bio. Tap and order today.`);
+    return lines.join('\n');
+  },
+
+  'Unboxing & honest review': (prods, cat, plat) => {
+    const p1 = prods[0];
+    return `[SEC 0:] I just got my hands on the ${p1.name} and I am going to give you my honest opinion.
+[SEC 8:] This came from ${STORE_LABELS[p1.store]||p1.store} and cost me ${p1.price}.
+[SEC 14:] First impressions — the packaging is solid and everything looks exactly as described.
+[SEC 22:] The quality is genuinely impressive for this price point. This is ${cat} done right.
+[SEC 30:] I have tested it thoroughly and I am happy to recommend it to anyone looking for ${cat}.
+[SEC 38:] ${prods.length>1?`I am also comparing it with ${prods.slice(1).map(p=>p.name+' at '+p.price).join(' and ')} so you can decide which is best for your budget.`:`At ${p1.price} this is exceptional value — I could not find anything better at this price.`}
+[SEC 47:] Tap the buy button below to grab yours — link is also in my bio.
+[SEC 54:] You will not be disappointed. I promise you that.`;
+  },
+
+  'Budget vs Premium comparison': (prods, cat, plat) => {
+    const cheap = [...prods].sort((a,b)=>parseFloat(a.price.replace(/[^0-9.]/g,''))-parseFloat(b.price.replace(/[^0-9.]/g,'')))[0];
+    const prem  = [...prods].sort((a,b)=>parseFloat(b.price.replace(/[^0-9.]/g,''))-parseFloat(a.price.replace(/[^0-9.]/g,'')))[0];
+    return `[SEC 0:] Budget or premium? Let me break down the best ${cat} options for every wallet.
+[SEC 8:] On the budget end we have the ${cheap.name} at just ${cheap.price} from ${STORE_LABELS[cheap.store]||cheap.store}.
+[SEC 16:] This is your best value option — great quality without breaking the bank.
+[SEC 24:] ${prods.length>1?`On the premium side, the ${prem.name} at ${prem.price} from ${STORE_LABELS[prem.store]||prem.store} offers more features and higher build quality.`:`Honestly, for most people this single option covers everything you need.`}
+[SEC 34:] Both are available right now — swipe to see each product and decide which suits your budget.
+[SEC 42:] Tap the buy button on whichever one you prefer and you go straight to the store.
+[SEC 50:] No middleman, no markup — just the best price direct from the store.
+[SEC 56:] Link in bio. Tap and get yours today.`;
+  }
+};
+
+const CAPTIONS = {
+  'Problem/Solution hook':      (prods,cat)=>`Looking for the best ${cat} at the best price? I have done the research for you. ${prods.map(p=>`${p.name} is available at ${p.price} on ${STORE_LABELS[p.store]||p.store}`).join(', and ')}. ${prods.length>1?'Swipe to compare and tap the one that suits your budget.':'Tap the link to buy.'} Link in bio.`,
+  'Top 5 list countdown':       (prods,cat)=>`These are the top ${cat} products available in South Africa right now. ${prods.map(p=>`${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}`).join(' — ')}. Tap the buy button on your favourite to go straight to the store. Link in bio.`,
+  'Unboxing & honest review':   (prods,cat)=>`Honest review of the ${prods[0].name} — priced at ${prods[0].price} from ${STORE_LABELS[prods[0].store]||prods[0].store}. Genuinely impressive quality for the price. ${prods.length>1?'Also comparing with '+prods.slice(1).map(p=>p.name).join(' and ')+' so you can choose the best deal.':''} Tap the link below to buy.`,
+  'Budget vs Premium comparison':(prods,cat)=>`Budget vs premium ${cat} — which should you buy? ${prods.map(p=>`${p.name} at ${p.price}`).join(' compared with ')}. Swipe through to see each option and tap the buy button on whichever suits your wallet. Link in bio.`
+};
+
+const HASHTAG_SETS = {
+  loadshedding:['loadshedding','solarpanel','powerbank','inverter','loadsheddinghacks','offgrid','solarpower','eskom','southafrica','eskomsepush','loadsheddingsolutions','solarenergy','portablepower','saveonenergy','sustainableliving','greenpower','homesolar','noloadshedding','energystorage','powersolution'],
+  tech:        ['budgettech','smartphone','techdeals','gadgets','southafrica','affordabletech','techsouthafrica','newphone','techreview','gadgetlovers','budgetsmartphone','androidphone','techhacks','mobiletech','bestdeals','techfinds','phonereview','techlover','gadgetreview','musthave'],
+  kitchen:     ['kitchengadgets','cooking','airfryer','kitchentools','southafrica','homecooking','kitchendeals','cookingtools','kitchenhacks','foodie','affordablekitchen','kitchenfinds','cookingtips','homechef','kitchenlove','cookinglife','kitchenessentials','bestgadgets','easymeals','kitchengoals'],
+  fitness:     ['homefitness','workout','hometraining','gym','southafrica','fitlife','fitness','homegym','fitnessmotivation','workoutathome','gymdeals','affordablefitness','exerciseathome','healthylifestyle','fitnessgear','workouttools','strongereveryday','fitnessjourney','healthylife','gymlife'],
+  car:         ['caraccessories','carcare','southafrica','driving','carupgrade','carlife','autoparts','cardeals','vehiclecare','carenthusiast','carlovers','autoaccessories','roadtrip','cargoals','bestcardeals','caressentials','cartech','motorist','southafricancars','carfinds'],
+  baby:        ['babyproducts','newborn','parenting','southafrica','babygear','mumlife','dadlife','babydeals','babyshopping','babyneeds','newmum','babylove','parentinglife','babyessentials','bestbabydeals','babymust','toddlerlife','parentingtips','babyfashion','babyshop'],
+  beauty:      ['beauty','skincare','makeup','southafrica','beautydeals','skincareroutine','beautyfinds','affordablebeauty','beautytips','glowup','skincaredeals','beautylovers','makeupreview','selfcare','glowskin','beautyobsessed','skincarelover','beautysa','affordablemakeup','skincaregoals'],
+  home:        ['homedecor','homeimprovement','interiordesign','southafrica','homedeals','homegoals','homeliving','homeessentials','householddeals','homelife','affordabledecor','homeandgarden','decorideas','interiorinspiration','hometips','modernhome','cozyHome','homedesign','gardenlife','homefinds']
+};
+
+const TIPS = {
+  TikTok:          '1. Post between 7pm and 9pm South African time for maximum reach.\n2. Use a trending sound from TikTok\'s library — it boosts the algorithm significantly.\n3. Reply to every comment in the first hour after posting — this signals engagement to TikTok.',
+  'Facebook Reels':'1. Share your Reel to your personal profile as well as any buy-and-sell Facebook groups.\n2. Post consistently — at least 3 times per week builds your audience steadily.\n3. Add a clear call to action in your caption telling people exactly where to tap to buy.',
+  'Instagram Reels':'1. Use all 30 hashtags allowed — mix popular and niche tags for the best reach.\n2. Add your affiliate link to your bio and mention "link in bio" clearly in the video.\n3. Share your Reel to your Stories immediately after posting to double the visibility.',
+  'YouTube Shorts': '1. Put your affiliate link in the video description and pin a comment with the link.\n2. The first 3 seconds are critical — show the product immediately to stop the scroll.\n3. Post at least 4 Shorts per week — consistency is what grows a YouTube channel.'
+};
+
+async function doGenerate(){
+  if(!cat)             { alert('Please choose a category in Step 1!'); return; }
+  if(!plat)            { alert('Please choose a platform in Step 2!'); return; }
+  if(products.length===0){ alert('Please add at least one product in Step 3!'); return; }
+
+  const styleKey = Object.keys(SCRIPTS).find(k => k === (window._selectedStyle||'Problem/Solution hook')) || 'Problem/Solution hook';
+
+  document.getElementById('genBtn').disabled=true;
+  document.getElementById('output').classList.remove('on');
+  document.getElementById('loading').classList.add('on');
+
+  const msgs=['✍️ Writing your video script...','🏷️ Generating hashtags...','📝 Crafting your caption...','✨ Almost ready...'];
+  let mi=0; const mi_=setInterval(()=>{ mi=(mi+1)%msgs.length; document.getElementById('loadMsg').textContent=msgs[mi]; },700);
+
+  // Small delay so the loading animation shows
+  await new Promise(r=>setTimeout(r,1800));
+
+  clearInterval(mi_);
+  document.getElementById('loading').classList.remove('on');
+
+  // Generate all content from templates — no API needed
+  const scriptFn = SCRIPTS[styleKey] || SCRIPTS['Problem/Solution hook'];
+  const captionFn = CAPTIONS[styleKey] || CAPTIONS['Problem/Solution hook'];
+  const script  = scriptFn(products, cat, plat);
+  const caption = captionFn(products, cat);
+  const hashSet = HASHTAG_SETS[catKey] || HASHTAG_SETS['home'];
+  const tips    = TIPS[plat] || TIPS['TikTok'];
+
+  document.getElementById('scEl').textContent  = script;
+  document.getElementById('caEl').textContent  = caption;
+  document.getElementById('tiEl').textContent  = tips;
+  tags = hashSet; renderTags();
+
+  const sc = caption.substring(0,100)+(caption.length>100?'...':'');
+  const st = '#'+hashSet.slice(0,4).join(' #');
+  ['ttC','fbC'].forEach(id=>document.getElementById(id).textContent=sc);
+  ['ttT','fbT'].forEach(id=>document.getElementById(id).textContent=st);
+
+  startCapAnim(script.split('\n'));
+  swUI(plat==='Facebook Reels'?'fb':'tt');
+  document.getElementById('output').classList.add('on');
+  document.getElementById('output').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('genBtn').disabled=false;
+}
   if(capTimer) clearInterval(capTimer);
   capLines=lines.filter(l=>l.trim().length>3).slice(0,12); capIdx=0;
   function show(){
