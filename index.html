@@ -2,63 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SA Affiliate Machine</title>
-
-<!-- PWA META TAGS -->
-<meta name="application-name" content="SA Affiliate Machine">
-<meta name="description" content="Generate affiliate marketing content for TikTok and Facebook Reels. South African affiliate tool.">
-<meta name="theme-color" content="#ff4500">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SA Affiliate">
-
-<!-- PWA MANIFEST (inline as data URI so single-file works) -->
-<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22SA%20Affiliate%20Machine%22%2C%22short_name%22%3A%22SA%20Affiliate%22%2C%22description%22%3A%22Generate%20affiliate%20content%20for%20TikTok%20and%20Facebook%20Reels%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%2207070f%22%2C%22theme_color%22%3A%22ff4500%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520192%2520192%2527%253E%253Crect%2520width%253D%2527192%2527%2520height%253D%2527192%2527%2520rx%253D%252740%2527%2520fill%253D%2527%2523ff4500%2527%252F%253E%253Ctext%2520x%253D%252796%2527%2520y%253D%2527130%2527%2520text-anchor%253D%2527middle%2527%2520font-size%253D%2527120%2527%253E%25F0%259F%25A4%2591%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
-
-<!-- Apple touch icon -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23ff4500'/><text x='90' y='125' text-anchor='middle' font-size='110'>🤑</text></svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
-/* PWA install banner */
-.install-banner{
-  position:fixed;bottom:0;left:0;right:0;
-  background:linear-gradient(135deg,#1a1a2e,#16213e);
-  border-top:2px solid var(--accent);
-  padding:14px 16px;
-  display:flex;align-items:center;gap:12px;
-  z-index:9999;
-  transform:translateY(100%);
-  transition:transform .4s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 -8px 32px rgba(0,0,0,.6);
-}
-.install-banner.show{transform:translateY(0);}
-.install-banner .app-icon{width:48px;height:48px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
-.install-banner .banner-text{flex:1;}
-.install-banner .banner-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
-.install-banner .banner-sub{font-size:11px;color:rgba(255,255,255,.6);}
-.install-banner .install-btn{padding:10px 18px;background:var(--accent);border:none;border-radius:9px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.install-banner .dismiss-btn{background:transparent;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
-
-/* iOS install instructions modal */
-.ios-modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;
-  display:none;align-items:flex-end;justify-content:center;padding:16px;
-}
-.ios-modal.show{display:flex;}
-.ios-modal-box{
-  background:#1a1a2e;border:1px solid var(--border);border-radius:18px;
-  padding:24px;max-width:380px;width:100%;
-  animation:fadeUp .3s ease both;
-}
-.ios-modal-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent2);margin-bottom:14px;letter-spacing:2px;}
-.ios-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;}
-.ios-step .ios-num{width:26px;height:26px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
-.ios-close{width:100%;padding:13px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;margin-top:6px;}
-
 :root{
   --bg:#07070f; --surface:#0f0f1a; --card:#14141f; --border:#22223a;
   --accent:#ff4500; --accent2:#ffb300; --success:#00e096; --info:#4fc3f7;
@@ -93,10 +40,6 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .plat-btn .icon{font-size:18px;display:block;margin-bottom:3px;}
 .plat-btn:hover{border-color:var(--accent2);}
 .plat-btn.on{border-color:var(--accent2);background:rgba(255,179,0,.1);}
-.style-btn{flex:1;min-width:90px;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;}
-.style-btn .icon{font-size:18px;display:block;margin-bottom:3px;}
-.style-btn:hover{border-color:var(--success);}
-.style-btn.on{border-color:var(--success);background:rgba(0,224,150,.1);}
 
 /* STEP 3 — SHOP + ADD PRODUCTS */
 .store-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
@@ -197,44 +140,38 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:68px;height:19px;background:#000;border-radius:0 0 12px 12px;z-index:50;}
 .sbar{position:absolute;top:3px;left:9px;right:9px;display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.8);font-weight:600;z-index:45;}
 
-/* Slides - add touch swipe support */
-.slides-wrap{position:absolute;inset:0;overflow:hidden;cursor:grab;}
-.slides-wrap:active{cursor:grabbing;}
-.slides-track{display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1);height:100%;}
+/* Slides */
+.slides-wrap{position:absolute;inset:0;overflow:hidden;}
+.slides-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);height:100%;}
 .slide{min-width:100%;height:100%;position:relative;overflow:hidden;}
 .slide svg{width:100%;height:100%;}
 .slide img{width:100%;height:100%;object-fit:cover;display:block;}
-.vov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.22) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 72%,rgba(0,0,0,.95) 100%);z-index:2;}
+.vov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.22) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 48%,rgba(0,0,0,.7) 76%,rgba(0,0,0,.95) 100%);z-index:2;}
 
 /* Dots */
 .sdots{position:absolute;top:26px;left:0;right:0;display:flex;justify-content:center;gap:3px;z-index:15;}
 .sdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .2s;}
 .sdot.on{background:#fff;width:13px;border-radius:3px;}
 
-/* Caption — scrollable, expandable on tap */
-.cap-ov{position:absolute;bottom:76px;left:7px;right:42px;z-index:12;}
-.cap-line{background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:600;line-height:1.55;padding:6px 9px;border-radius:7px;border-left:3px solid var(--accent);text-shadow:0 1px 3px rgba(0,0,0,.9);max-height:58px;overflow:hidden;transition:max-height .3s ease;cursor:pointer;position:relative;}
-.cap-line.expanded{max-height:160px;overflow-y:auto;}
-.cap-line::after{content:'▾ tap to expand';position:absolute;bottom:4px;right:7px;font-size:7px;color:rgba(255,255,255,.5);font-weight:400;}
-.cap-line.expanded::after{content:'▴ tap to collapse';}
+/* Caption */
+.cap-ov{position:absolute;bottom:112px;left:7px;right:42px;z-index:12;}
+.cap-line{background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:700;line-height:1.5;padding:5px 8px;border-radius:6px;border-left:3px solid var(--accent);text-shadow:0 1px 3px rgba(0,0,0,.9);min-height:30px;}
 
-/* Buy button */
-.buy-ov{position:absolute;bottom:22px;left:7px;right:42px;z-index:12;}
-.buy-btn-phone{display:block;width:100%;padding:7px;border:none;border-radius:8px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.5px;text-align:center;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 3px 12px rgba(0,0,0,.4);}
-.buy-btn-phone:hover{filter:brightness(1.1);transform:translateY(-1px);}
+/* Buy button per slide */
+.buy-ov{position:absolute;bottom:52px;left:7px;right:42px;z-index:12;}
+.buy-btn-phone{display:block;width:100%;padding:8px;border:none;border-radius:9px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;text-align:center;cursor:pointer;text-decoration:none;transition:background .3s;}
 
 /* TikTok UI */
 .tt-top{position:absolute;top:22px;left:0;right:0;display:flex;justify-content:center;gap:15px;z-index:10;font-size:10px;color:rgba(255,255,255,.65);font-weight:600;}
 .tt-top .at{color:#fff;border-bottom:2px solid #fff;padding-bottom:2px;}
-.tt-side{position:absolute;right:4px;bottom:90px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;}
+.tt-side{position:absolute;right:5px;bottom:100px;display:flex;flex-direction:column;align-items:center;gap:11px;z-index:10;}
 .ti{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:8px;cursor:pointer;transition:transform .15s;}
-.ti:active{transform:scale(.82);}
+.ti:active{transform:scale(.85);}
 .ti .ico{font-size:18px;}
 .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;}
-.tt-bot{position:absolute;bottom:0;left:0;right:0;padding:4px 40px 80px 8px;z-index:10;}
+.tt-bot{position:absolute;bottom:0;left:0;right:0;padding:5px 40px 45px 8px;z-index:10;}
 .tt-user{font-size:10px;font-weight:700;color:#fff;margin-bottom:2px;}
-.tt-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;}
-.tt-cap.expanded{display:block;-webkit-line-clamp:unset;max-height:80px;overflow-y:auto;}
+.tt-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .tt-tags{margin-top:2px;font-size:9px;color:#69c9d0;font-weight:600;}
 .mus{display:flex;align-items:center;gap:3px;margin-top:2px;font-size:8px;color:rgba(255,255,255,.55);overflow:hidden;white-space:nowrap;}
 .mn{display:inline-block;animation:spin 3s linear infinite;}
@@ -244,20 +181,19 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 /* FB UI */
 .fb-top{position:absolute;top:21px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:10;}
 .fb-logo{font-size:11px;font-weight:800;color:#1877f2;}
-.fb-side{position:absolute;right:4px;bottom:88px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;}
+.fb-side{position:absolute;right:5px;bottom:96px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;}
 .fi{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:8px;cursor:pointer;transition:transform .15s;}
-.fi:active{transform:scale(.82);}
+.fi:active{transform:scale(.85);}
 .fi .ico{font-size:18px;}
-.fb-bot{position:absolute;bottom:0;left:0;right:0;padding:4px 40px 80px 8px;z-index:10;}
+.fb-bot{position:absolute;bottom:0;left:0;right:0;padding:5px 40px 45px 8px;z-index:10;}
 .fb-user{display:flex;align-items:center;gap:4px;margin-bottom:2px;}
 .fb-av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#42a5f5);display:flex;align-items:center;justify-content:center;font-size:9px;border:1.5px solid #fff;}
 .fb-nm{font-size:10px;font-weight:700;color:#fff;}
 .fb-flw{font-size:8px;color:#fff;border:1px solid #fff;border-radius:3px;padding:1px 4px;margin-left:2px;}
-.fb-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;}
-.fb-cap.expanded{display:block;-webkit-line-clamp:unset;max-height:80px;overflow-y:auto;}
+.fb-cap{font-size:9px;color:rgba(255,255,255,.88);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .fb-tags{margin-top:2px;font-size:9px;color:#69c9d0;font-weight:600;}
 
-.toast{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);color:#fff;font-size:9px;padding:5px 12px;border-radius:10px;white-space:nowrap;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);color:#fff;font-size:9px;padding:5px 12px;border-radius:10px;white-space:nowrap;z-index:99;opacity:0;transition:opacity .3s;pointer-events:none;}
 
 /* Phone controls */
 .pctrl{margin-top:9px;display:flex;flex-direction:column;align-items:center;gap:6px;width:244px;}
@@ -270,18 +206,6 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .snbtn:hover{border-color:var(--text);color:var(--text);}
 .lkdisp{font-size:11px;color:var(--muted);}
 .lkdisp span{color:var(--accent2);font-weight:700;}
-
-/* HOW TO POST GUIDE */
-.post-guide{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:10px;width:244px;}
-.post-guide-title{font-size:10px;font-weight:700;color:var(--accent2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
-.post-guide-tabs{display:flex;gap:5px;margin-bottom:10px;}
-.pgtab{flex:1;padding:5px;font-size:10px;font-weight:600;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.pgtab.on{background:#ff004f22;border-color:#ff004f;color:#ff6b9d;}
-.pgtab.fb-tab.on{background:#1877f222;border-color:#1877f2;color:#4fc3f7;}
-.post-steps{font-size:10px;color:var(--muted);line-height:2;padding-left:2px;}
-.post-steps .step{display:flex;gap:7px;align-items:flex-start;margin-bottom:4px;}
-.post-steps .num{background:var(--accent);color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;margin-top:1px;}
-
 .disc{text-align:center;font-size:11px;color:var(--muted);margin-top:18px;line-height:1.7;}
 
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -323,17 +247,6 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
     <button class="plat-btn" onclick="selPlat(this,'Facebook Reels')"><span class="icon">📘</span>Facebook Reels</button>
     <button class="plat-btn" onclick="selPlat(this,'Instagram Reels')"><span class="icon">📸</span>Instagram Reels</button>
     <button class="plat-btn" onclick="selPlat(this,'YouTube Shorts')"><span class="icon">▶️</span>YouTube Shorts</button>
-  </div>
-</div>
-
-<!-- STEP 2B: VIDEO STYLE -->
-<div class="card">
-  <div class="step-label">Step 2B — Choose Video Style</div>
-  <div class="plat-row" style="flex-wrap:wrap;">
-    <button class="style-btn" onclick="selStyle(this,'Problem/Solution hook')" style="min-width:130px;"><span class="icon">🎯</span>Problem / Solution</button>
-    <button class="style-btn" onclick="selStyle(this,'Top 5 list countdown')" style="min-width:130px;"><span class="icon">🔢</span>Top 5 List</button>
-    <button class="style-btn" onclick="selStyle(this,'Unboxing & honest review')" style="min-width:130px;"><span class="icon">📦</span>Unboxing Review</button>
-    <button class="style-btn" onclick="selStyle(this,'Budget vs Premium comparison')" style="min-width:130px;"><span class="icon">⚖️</span>Budget vs Premium</button>
   </div>
 </div>
 
@@ -510,44 +423,11 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
       <button class="cbtn" onclick="stopSpeak()">⏹ Stop</button>
     </div>
     <div class="snav" id="snav" style="display:none;">
-      <button class="snbtn" onclick="prevSlide()">‹ Prev</button>
+      <button class="snbtn" onclick="prevSlide()">‹</button>
       <span id="scount" style="font-size:11px;color:var(--muted);padding:0 6px;">1/1</span>
-      <button class="snbtn" onclick="nextSlide()">Next ›</button>
+      <button class="snbtn" onclick="nextSlide()">›</button>
     </div>
     <div class="lkdisp">❤️ <span id="lkc">24,500</span> likes</div>
-    <p style="font-size:9px;color:var(--muted);text-align:center;">← Swipe the phone left/right to see each product</p>
-    <p style="font-size:9px;color:var(--muted);text-align:center;">Tap the caption on the phone to expand it</p>
-  </div>
-
-  <!-- HOW TO POST GUIDE -->
-  <div class="post-guide">
-    <div class="post-guide-title">📲 How to post this on your phone</div>
-    <div class="post-guide-tabs">
-      <div class="pgtab on" id="pgTT" onclick="swPostGuide('tt')">🎵 TikTok</div>
-      <div class="pgtab fb-tab" id="pgFB" onclick="swPostGuide('fb')">📘 Facebook</div>
-    </div>
-
-    <div id="guide-tt">
-      <div class="post-steps">
-        <div class="step"><div class="num">1</div><div>Open TikTok on your phone and tap the <strong style="color:#fff;">+ button</strong> at the bottom</div></div>
-        <div class="step"><div class="num">2</div><div>Tap <strong style="color:#fff;">Upload</strong> and select your product video or photos from your gallery</div></div>
-        <div class="step"><div class="num">3</div><div>Tap <strong style="color:#fff;">Next</strong> — you will see a screen with a text box that says <strong style="color:#ff6b9d;">"Describe your video"</strong></div></div>
-        <div class="step"><div class="num">4</div><div>Tap that box, then <strong style="color:#fff;">paste your Post Caption</strong> (copy it from the left panel)</div></div>
-        <div class="step"><div class="num">5</div><div>At the end of the caption, <strong style="color:#fff;">paste your Hashtags</strong> (copy them from the left panel)</div></div>
-        <div class="step"><div class="num">6</div><div>Tap <strong style="color:#ff6b9d;">Post</strong> — your video goes live and reaches thousands of people!</div></div>
-      </div>
-    </div>
-
-    <div id="guide-fb" style="display:none;">
-      <div class="post-steps">
-        <div class="step"><div class="num">1</div><div>Open Facebook on your phone and tap <strong style="color:#fff;">Reels</strong> at the top of your feed</div></div>
-        <div class="step"><div class="num">2</div><div>Tap the <strong style="color:#fff;">+ Create Reel</strong> button and select your video from your gallery</div></div>
-        <div class="step"><div class="num">3</div><div>Tap <strong style="color:#fff;">Next</strong> — you will see a screen with a box that says <strong style="color:#4fc3f7;">"Write a description"</strong></div></div>
-        <div class="step"><div class="num">4</div><div>Tap that box, then <strong style="color:#fff;">paste your Post Caption</strong> (copy it from the left panel)</div></div>
-        <div class="step"><div class="num">5</div><div>After the caption, <strong style="color:#fff;">paste your Hashtags</strong> (copy them from the left panel)</div></div>
-        <div class="step"><div class="num">6</div><div>Tap <strong style="color:#4fc3f7;">Share</strong> — your Reel is live!</div></div>
-      </div>
-    </div>
   </div>
 </div>
 </div>
@@ -592,84 +472,27 @@ function storeUrl(store, term){
 function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours()+':'+(n.getMinutes()<10?'0':'')+n.getMinutes();}
 setInterval(tick,10000);tick();
 
-// Set default store URLs so buttons work even before category is picked
-(function(){
-  const defaults={
-    takealot:'https://www.takealot.com',
-    amazon:'https://www.amazon.co.za',
-    temu:'https://www.temu.com',
-    superbalist:'https://superbalist.com',
-    makro:'https://www.makro.co.za'
-  };
-  Object.entries(defaults).forEach(([store,url])=>{
-    const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
-    if(el) el.href=url;
-  });
-})();
-
-// ══ SELECTORS — each uses its own dedicated CSS class ══
+// ══ SELECTORS ══
 function selCat(btn,label,key){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   cat=label; catKey=key;
-  // Update ALL store buttons to open the correct category
+  // Update all store links to search for this category
   const s=CAT_SEARCH[key]||{};
   ['takealot','amazon','temu','superbalist','makro'].forEach(store=>{
     const term=s[store];
     const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
     if(!el) return;
-    const url=storeUrl(store,term||label.replace(/ /g,'+'));
-    el.href=url||'https://www.'+store+'.com';
-    el.style.opacity='1';
+    if(term){ el.href=storeUrl(store,term); el.style.opacity='1'; }
+    else { el.href='https://www.'+store+'.com'; el.style.opacity='.5'; }
   });
-  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store button above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it in the box below (Ctrl+V) → Click + ADD`;
+  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it above (Ctrl+V) → Click + ADD`;
 }
 
 function selPlat(btn,val){
   document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  plat=val;
+  btn.classList.add('on'); plat=val;
   swUI(val==='Facebook Reels'?'fb':'tt');
-}
-
-function selStyle(btn,val){
-  document.querySelectorAll('.style-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  window._selectedStyle=val;
-}
-
-// ══ ADD PRODUCT (offline — no API, uses URL slug) ══
-const EMOJI_MAP = {
-  loadshedding:'⚡', tech:'📱', kitchen:'🍳', fitness:'💪',
-  car:'🚗', baby:'👶', beauty:'💄', home:'🏡'
-};
-
-async function addProduct(){
-  const url=document.getElementById('addUrl').value.trim();
-  if(!url||!url.startsWith('http')){ alert('Please paste a full product link starting with https://'); return; }
-  if(!cat){ alert('Please choose a category in Step 1 first!'); return; }
-
-  const btn=document.getElementById('addBtn');
-  btn.disabled=true; btn.textContent='...';
-
-  const store=guessStore(url);
-  const slug=parseSlug(url);
-
-  // Clean up slug into readable name
-  const name = slug
-    ? slug.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ').substring(0,55)
-    : cat + ' Product';
-
-  const emoji = EMOJI_MAP[catKey] || '📦';
-
-  const id='prod_'+Date.now();
-  products.push({id, name, price:'See site for price', emoji, store, url, imgSrc:null});
-  renderProductList();
-  buildSlides();
-
-  document.getElementById('addUrl').value='';
-  btn.disabled=false; btn.textContent='+ ADD';
-  pToast(`✅ ${name} added! Remember to fix the price on the card.`);
 }
 
 function swUI(t){
@@ -706,7 +529,12 @@ function parseSlug(url){
   }catch(e){return '';}
 }
 
-// ══ ADD PRODUCT ══
+// ══ ADD PRODUCT — offline, no API ══
+const CAT_EMOJIS = {
+  loadshedding:'⚡', tech:'📱', kitchen:'🍳', fitness:'💪',
+  car:'🚗', baby:'👶', beauty:'💄', home:'🏡'
+};
+
 async function addProduct(){
   const url=document.getElementById('addUrl').value.trim();
   if(!url||!url.startsWith('http')){ alert('Please paste a full product link starting with https://'); return; }
@@ -718,33 +546,20 @@ async function addProduct(){
   const store=guessStore(url);
   const slug=parseSlug(url);
 
-  let name=slug||'Product', price='See site for price', emoji='📦';
-
-  try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:200,
-        messages:[{role:'user',content:`Product URL: "${url}". Store: ${store}. URL slug: "${slug}". Category: ${cat}.
-Identify this product. Respond ONLY with valid JSON, no markdown:
-{"name":"Clean product name max 55 chars","price":"Estimated SA price e.g. R 399 or R 1299","emoji":"Best single emoji"}`}]
-      })
-    });
-    const d=await res.json();
-    const info=JSON.parse(d.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
-    name=info.name||slug||'Product';
-    price=info.price||'See site';
-    emoji=info.emoji||'📦';
-  }catch(e){}
+  // Clean slug into a readable product name
+  const name = slug
+    ? slug.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ').substring(0,55)
+    : cat+' Product';
+  const emoji = CAT_EMOJIS[catKey]||'📦';
 
   const id='prod_'+Date.now();
-  products.push({id,name,price,emoji,store,url,imgSrc:null});
+  products.push({id, name, price:'See site for price', emoji, store, url, imgSrc:null});
   renderProductList();
   buildSlides();
 
   document.getElementById('addUrl').value='';
   btn.disabled=false; btn.textContent='+ ADD';
-  pToast(`✅ ${name} added!`);
+  pToast('✅ '+name+' added! Tap ✏️ Fix price on the card to enter the correct price.');
 }
 
 // ══ RENDER PRODUCT LIST ══
@@ -960,68 +775,19 @@ function buildDots(){
 function prevSlide(){ if(si>0){si--;renderSlidePos();} }
 function nextSlide(){ if(si<slides.length-1){si++;renderSlidePos();} }
 
-// ══ OFFLINE CONTENT GENERATION ══
-// Fully works without internet — no API needed
-
-const SCRIPTS = {
-  'Problem/Solution hook': (prods, cat, plat) => {
-    const p1 = prods[0];
-    const multi = prods.length > 1;
-    const compare = multi ? prods.map(p=>`${p.name} from ${STORE_LABELS[p.store]||p.store} at ${p.price}`).join(', and ') : '';
-    return `[SEC 0:] Are you tired of overpaying for ${cat}? I have found exactly what you need.
-[SEC 5:] Let me show you the best options available right now — and you can tap to buy directly.
-[SEC 10:] First up — ${p1.name}. This is priced at ${p1.price} on ${STORE_LABELS[p1.store]||p1.store}.
-[SEC 18:] This is genuinely one of the best value options I have come across for ${cat}.
-[SEC 25:] ${multi ? `And there is more — I am also showing you ${compare} so you can compare and choose the best deal.` : `The quality is excellent and the price is hard to beat anywhere in South Africa.`}
-[SEC 35:] All you need to do is tap the buy button on the product you want — it takes you straight to the store.
-[SEC 42:] No searching, no hassle — just tap and buy.
-[SEC 48:] The link is in my bio. Tap it, pick your favourite, and get it delivered.
-[SEC 55:] Do not miss out — these prices will not last forever.`;
-  },
-
-  'Top 5 list countdown': (prods, cat, plat) => {
-    const lines = [`[SEC 0:] Here are the top ${Math.min(prods.length, 5)} ${cat} products you need to know about right now.`];
-    prods.slice(0,5).forEach((p,i) => {
-      lines.push(`[SEC ${10+(i*10)}:] Number ${i+1} — ${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}.`);
-    });
-    lines.push(`[SEC ${10+(prods.length*10)}:] Every single one of these is available right now — tap the buy button to go straight to the store.`);
-    lines.push(`[SEC ${15+(prods.length*10)}:] Link is in my bio. Tap and order today.`);
-    return lines.join('\n');
-  },
-
-  'Unboxing & honest review': (prods, cat, plat) => {
-    const p1 = prods[0];
-    return `[SEC 0:] I just got my hands on the ${p1.name} and I am going to give you my honest opinion.
-[SEC 8:] This came from ${STORE_LABELS[p1.store]||p1.store} and cost me ${p1.price}.
-[SEC 14:] First impressions — the packaging is solid and everything looks exactly as described.
-[SEC 22:] The quality is genuinely impressive for this price point. This is ${cat} done right.
-[SEC 30:] I have tested it thoroughly and I am happy to recommend it to anyone looking for ${cat}.
-[SEC 38:] ${prods.length>1?`I am also comparing it with ${prods.slice(1).map(p=>p.name+' at '+p.price).join(' and ')} so you can decide which is best for your budget.`:`At ${p1.price} this is exceptional value — I could not find anything better at this price.`}
-[SEC 47:] Tap the buy button below to grab yours — link is also in my bio.
-[SEC 54:] You will not be disappointed. I promise you that.`;
-  },
-
-  'Budget vs Premium comparison': (prods, cat, plat) => {
-    const cheap = [...prods].sort((a,b)=>parseFloat(a.price.replace(/[^0-9.]/g,''))-parseFloat(b.price.replace(/[^0-9.]/g,'')))[0];
-    const prem  = [...prods].sort((a,b)=>parseFloat(b.price.replace(/[^0-9.]/g,''))-parseFloat(a.price.replace(/[^0-9.]/g,'')))[0];
-    return `[SEC 0:] Budget or premium? Let me break down the best ${cat} options for every wallet.
-[SEC 8:] On the budget end we have the ${cheap.name} at just ${cheap.price} from ${STORE_LABELS[cheap.store]||cheap.store}.
-[SEC 16:] This is your best value option — great quality without breaking the bank.
-[SEC 24:] ${prods.length>1?`On the premium side, the ${prem.name} at ${prem.price} from ${STORE_LABELS[prem.store]||prem.store} offers more features and higher build quality.`:`Honestly, for most people this single option covers everything you need.`}
-[SEC 34:] Both are available right now — swipe to see each product and decide which suits your budget.
-[SEC 42:] Tap the buy button on whichever one you prefer and you go straight to the store.
-[SEC 50:] No middleman, no markup — just the best price direct from the store.
-[SEC 56:] Link in bio. Tap and get yours today.`;
+// ══ CAPTION ANIMATION ══
+function startCapAnim(lines){
+  if(capTimer) clearInterval(capTimer);
+  capLines=lines.filter(l=>l.trim().length>3).slice(0,12); capIdx=0;
+  function show(){
+    const clean=capLines[capIdx%capLines.length].replace(/\[SEC\s*\d+[:\]]/gi,'').trim();
+    if(clean.length>2) document.getElementById('capLine').textContent=clean;
+    capIdx++;
   }
-};
+  show(); capTimer=setInterval(show,3500);
+}
 
-const CAPTIONS = {
-  'Problem/Solution hook':      (prods,cat)=>`Looking for the best ${cat} at the best price? I have done the research for you. ${prods.map(p=>`${p.name} is available at ${p.price} on ${STORE_LABELS[p.store]||p.store}`).join(', and ')}. ${prods.length>1?'Swipe to compare and tap the one that suits your budget.':'Tap the link to buy.'} Link in bio.`,
-  'Top 5 list countdown':       (prods,cat)=>`These are the top ${cat} products available in South Africa right now. ${prods.map(p=>`${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}`).join(' — ')}. Tap the buy button on your favourite to go straight to the store. Link in bio.`,
-  'Unboxing & honest review':   (prods,cat)=>`Honest review of the ${prods[0].name} — priced at ${prods[0].price} from ${STORE_LABELS[prods[0].store]||prods[0].store}. Genuinely impressive quality for the price. ${prods.length>1?'Also comparing with '+prods.slice(1).map(p=>p.name).join(' and ')+' so you can choose the best deal.':''} Tap the link below to buy.`,
-  'Budget vs Premium comparison':(prods,cat)=>`Budget vs premium ${cat} — which should you buy? ${prods.map(p=>`${p.name} at ${p.price}`).join(' compared with ')}. Swipe through to see each option and tap the buy button on whichever suits your wallet. Link in bio.`
-};
-
+// ══ OFFLINE CONTENT TEMPLATES ══
 const HASHTAG_SETS = {
   loadshedding:['loadshedding','solarpanel','powerbank','inverter','loadsheddinghacks','offgrid','solarpower','eskom','southafrica','eskomsepush','loadsheddingsolutions','solarenergy','portablepower','saveonenergy','sustainableliving','greenpower','homesolar','noloadshedding','energystorage','powersolution'],
   tech:        ['budgettech','smartphone','techdeals','gadgets','southafrica','affordabletech','techsouthafrica','newphone','techreview','gadgetlovers','budgetsmartphone','androidphone','techhacks','mobiletech','bestdeals','techfinds','phonereview','techlover','gadgetreview','musthave'],
@@ -1030,22 +796,52 @@ const HASHTAG_SETS = {
   car:         ['caraccessories','carcare','southafrica','driving','carupgrade','carlife','autoparts','cardeals','vehiclecare','carenthusiast','carlovers','autoaccessories','roadtrip','cargoals','bestcardeals','caressentials','cartech','motorist','southafricancars','carfinds'],
   baby:        ['babyproducts','newborn','parenting','southafrica','babygear','mumlife','dadlife','babydeals','babyshopping','babyneeds','newmum','babylove','parentinglife','babyessentials','bestbabydeals','babymust','toddlerlife','parentingtips','babyfashion','babyshop'],
   beauty:      ['beauty','skincare','makeup','southafrica','beautydeals','skincareroutine','beautyfinds','affordablebeauty','beautytips','glowup','skincaredeals','beautylovers','makeupreview','selfcare','glowskin','beautyobsessed','skincarelover','beautysa','affordablemakeup','skincaregoals'],
-  home:        ['homedecor','homeimprovement','interiordesign','southafrica','homedeals','homegoals','homeliving','homeessentials','householddeals','homelife','affordabledecor','homeandgarden','decorideas','interiorinspiration','hometips','modernhome','cozyHome','homedesign','gardenlife','homefinds']
+  home:        ['homedecor','homeimprovement','interiordesign','southafrica','homedeals','homegoals','homeliving','homeessentials','householddeals','homelife','affordabledecor','homeandgarden','decorideas','interiorinspiration','hometips','modernhome','cosyhome','homedesign','gardenlife','homefinds']
 };
 
-const TIPS = {
-  TikTok:          '1. Post between 7pm and 9pm South African time for maximum reach.\n2. Use a trending sound from TikTok\'s library — it boosts the algorithm significantly.\n3. Reply to every comment in the first hour after posting — this signals engagement to TikTok.',
-  'Facebook Reels':'1. Share your Reel to your personal profile as well as any buy-and-sell Facebook groups.\n2. Post consistently — at least 3 times per week builds your audience steadily.\n3. Add a clear call to action in your caption telling people exactly where to tap to buy.',
-  'Instagram Reels':'1. Use all 30 hashtags allowed — mix popular and niche tags for the best reach.\n2. Add your affiliate link to your bio and mention "link in bio" clearly in the video.\n3. Share your Reel to your Stories immediately after posting to double the visibility.',
-  'YouTube Shorts': '1. Put your affiliate link in the video description and pin a comment with the link.\n2. The first 3 seconds are critical — show the product immediately to stop the scroll.\n3. Post at least 4 Shorts per week — consistency is what grows a YouTube channel.'
+const POSTING_TIPS = {
+  'TikTok':           '1. Post between 7pm and 9pm South African time for maximum reach.\n2. Use a trending sound from TikTok\'s music library — it boosts the algorithm significantly.\n3. Reply to every comment in the first hour after posting — this signals engagement to TikTok and pushes your video to more people.',
+  'Facebook Reels':   '1. Share your Reel to your personal profile AND to relevant buy-and-sell Facebook groups for extra reach.\n2. Post at least 3 times per week — consistency builds your audience steadily.\n3. Add a clear call to action in your caption telling people exactly where to tap to buy.',
+  'Instagram Reels':  '1. Use all 30 hashtags allowed — mix popular and niche tags for the best reach.\n2. Add your affiliate link to your bio and say "link in bio" clearly in the video.\n3. Share your Reel to your Stories immediately after posting to double the visibility.',
+  'YouTube Shorts':   '1. Put your affiliate link in the video description and pin a comment with the link.\n2. Show the product in the first 2 seconds — do not waste time with an intro.\n3. Post at least 4 Shorts per week — consistency is what grows a YouTube channel.'
 };
 
+function buildScript(prods, catName, style){
+  const p1 = prods[0];
+  const sl1 = STORE_LABELS[p1.store]||p1.store;
+  const multi = prods.length > 1;
+  const allProds = prods.map(p=>`${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}`).join(', and ');
+
+  if(style==='Top 5 list countdown'){
+    let lines = [`[SEC 0:] Here are the best ${catName} products available in South Africa right now.`];
+    prods.forEach((p,i)=>{ lines.push(`[SEC ${8+(i*9)}:] Number ${i+1} — ${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}.`); });
+    lines.push(`[SEC ${8+(prods.length*9)}:] All of these are available right now. Tap the buy button to go straight to the store.`);
+    lines.push(`[SEC ${14+(prods.length*9)}:] Link is in my bio. Tap and order today.`);
+    return lines.join('\n');
+  }
+  if(style==='Unboxing & honest review'){
+    return `[SEC 0:] I just got my hands on the ${p1.name} and I am going to give you my completely honest opinion.\n[SEC 8:] This came from ${sl1} and is priced at ${p1.price}.\n[SEC 14:] First impressions — the quality is genuinely impressive for this price point.\n[SEC 22:] I have tested it thoroughly and I am very happy with it. This is ${catName} done right.\n[SEC 30:] ${multi?`I am also comparing it with ${prods.slice(1).map(p=>p.name+' at '+p.price+' from '+(STORE_LABELS[p.store]||p.store)).join(' and ')} — swipe to see each option.`:`At ${p1.price} this is exceptional value. I could not find anything better at this price in South Africa.`}\n[SEC 42:] Tap the buy button below to grab yours — the link is also in my bio.\n[SEC 50:] You will not be disappointed. I promise you that.`;
+  }
+  if(style==='Budget vs Premium comparison'){
+    const sorted=[...prods].sort((a,b)=>parseFloat(a.price.replace(/[^\d.]/g,''))-parseFloat(b.price.replace(/[^\d.]/g,'')));
+    const cheap=sorted[0], prem=sorted[sorted.length-1];
+    return `[SEC 0:] Budget or premium? Let me break down the best ${catName} options for every wallet.\n[SEC 8:] On the budget end — ${cheap.name} at just ${cheap.price} from ${STORE_LABELS[cheap.store]||cheap.store}.\n[SEC 18:] Excellent value and great quality without breaking the bank.\n[SEC 26:] ${prods.length>1?`On the premium side — ${prem.name} at ${prem.price} from ${STORE_LABELS[prem.store]||prem.store}. More features and higher build quality.`:`Honestly for most people this single option covers everything you need.`}\n[SEC 36:] Swipe through to see each product and tap the buy button on whichever suits your budget.\n[SEC 44:] No middleman, no markup — best price straight from the store.\n[SEC 52:] Link in my bio. Tap and get yours today.`;
+  }
+  // Default: Problem/Solution
+  return `[SEC 0:] Are you tired of overpaying for ${catName}? I have found exactly what you need.\n[SEC 6:] Let me show you the best options available right now — and you can tap to buy directly.\n[SEC 12:] ${p1.name} — priced at ${p1.price} on ${sl1}. This is genuinely one of the best value products I have come across.\n[SEC 22:] ${multi?`I am also showing you ${prods.slice(1).map(p=>p.name+' at '+p.price+' from '+(STORE_LABELS[p.store]||p.store)).join(', and ')} so you can compare and choose the best deal.`:`The quality is excellent and the price is hard to beat anywhere in South Africa.`}\n[SEC 34:] Swipe through each product and tap the buy button on the one you want — it takes you straight to the store.\n[SEC 43:] No searching, no hassle. Just tap and buy.\n[SEC 48:] The link is in my bio. Tap it, pick your favourite, and get it delivered to your door.\n[SEC 55:] Do not miss out — these prices will not last forever.`;
+}
+
+function buildCaption(prods, catName){
+  const multi = prods.length > 1;
+  const list = prods.map(p=>`${p.name} at ${p.price} from ${STORE_LABELS[p.store]||p.store}`).join(', and ');
+  return `Looking for the best ${catName} at the best price? I have done all the research for you. ${list}. ${multi?'Swipe through to compare prices across stores and tap the one that suits your budget.':'Tap the link to buy now.'} Link in bio.`;
+}
+
+// ══ GENERATE — fully offline, no API needed ══
 async function doGenerate(){
-  if(!cat)             { alert('Please choose a category in Step 1!'); return; }
-  if(!plat)            { alert('Please choose a platform in Step 2!'); return; }
+  if(!cat)              { alert('Please choose a category in Step 1!'); return; }
+  if(!plat)             { alert('Please choose a platform in Step 2!'); return; }
   if(products.length===0){ alert('Please add at least one product in Step 3!'); return; }
-
-  const styleKey = Object.keys(SCRIPTS).find(k => k === (window._selectedStyle||'Problem/Solution hook')) || 'Problem/Solution hook';
 
   document.getElementById('genBtn').disabled=true;
   document.getElementById('output').classList.remove('on');
@@ -1054,19 +850,17 @@ async function doGenerate(){
   const msgs=['✍️ Writing your video script...','🏷️ Generating hashtags...','📝 Crafting your caption...','✨ Almost ready...'];
   let mi=0; const mi_=setInterval(()=>{ mi=(mi+1)%msgs.length; document.getElementById('loadMsg').textContent=msgs[mi]; },700);
 
-  // Small delay so the loading animation shows
-  await new Promise(r=>setTimeout(r,1800));
-
+  // Short delay so loading animation shows
+  await new Promise(r=>setTimeout(r,1600));
   clearInterval(mi_);
   document.getElementById('loading').classList.remove('on');
 
-  // Generate all content from templates — no API needed
-  const scriptFn = SCRIPTS[styleKey] || SCRIPTS['Problem/Solution hook'];
-  const captionFn = CAPTIONS[styleKey] || CAPTIONS['Problem/Solution hook'];
-  const script  = scriptFn(products, cat, plat);
-  const caption = captionFn(products, cat);
-  const hashSet = HASHTAG_SETS[catKey] || HASHTAG_SETS['home'];
-  const tips    = TIPS[plat] || TIPS['TikTok'];
+  const style = window._style||'Problem/Solution hook';
+  const script  = buildScript(products, cat, style);
+  const caption = buildCaption(products, cat);
+  const hashKey = catKey||'home';
+  const hashSet = HASHTAG_SETS[hashKey]||HASHTAG_SETS['home'];
+  const tips    = POSTING_TIPS[plat]||POSTING_TIPS['TikTok'];
 
   document.getElementById('scEl').textContent  = script;
   document.getElementById('caEl').textContent  = caption;
@@ -1082,83 +876,6 @@ async function doGenerate(){
   swUI(plat==='Facebook Reels'?'fb':'tt');
   document.getElementById('output').classList.add('on');
   document.getElementById('output').scrollIntoView({behavior:'smooth',block:'start'});
-  document.getElementById('genBtn').disabled=false;
-}
-  if(capTimer) clearInterval(capTimer);
-  capLines=lines.filter(l=>l.trim().length>3).slice(0,12); capIdx=0;
-  function show(){
-    const clean=capLines[capIdx%capLines.length].replace(/\[SEC\s*\d+[:\]]/gi,'').trim();
-    if(clean.length>2) document.getElementById('capLine').textContent=clean;
-    capIdx++;
-  }
-  show(); capTimer=setInterval(show,3500);
-}
-
-// ══ GENERATE ══
-async function doGenerate(){
-  if(!cat)             { alert('Please choose a category in Step 1!'); return; }
-  if(!plat)            { alert('Please choose a platform in Step 2!'); return; }
-  if(products.length===0){ alert('Please add at least one product in Step 3!'); return; }
-
-  document.getElementById('genBtn').disabled=true;
-  document.getElementById('output').classList.remove('on');
-  document.getElementById('loading').classList.add('on');
-
-  const msgs=['✍️ Writing your video script...','🏷️ Generating hashtags...','📝 Crafting your caption...','✨ Almost ready...'];
-  let mi=0; const mi_=setInterval(()=>{ mi=(mi+1)%msgs.length; document.getElementById('loadMsg').textContent=msgs[mi]; },1800);
-
-  const productList=products.map((p,i)=>`Product ${i+1}: ${p.name} — ${p.price} at ${STORE_LABELS[p.store]||p.store} (${p.url})`).join('\n');
-
-  try{
-    const prompt=`You are a professional social media content creator specialising in affiliate marketing for a South African audience.
-
-Category: ${cat}
-Platform: ${plat}
-Products being promoted:
-${productList}
-
-Write all content in clear, professional UK English. Do not use slang. Write naturally and engagingly, as if speaking to everyday South African shoppers. Mention prices in Rands (R).
-${products.length>1?'Highlight that customers can compare prices across stores and tap the one they prefer.':''}
-
-Respond ONLY with valid JSON — no markdown, no backticks:
-{
-  "script": "Full 45-60 second spoken script. Each line on its own line starting with [SEC X:]. Mention product names and prices. If multiple products, compare them. End with clear call to action.",
-  "caption": "3-4 sentences. Mention the products and prices. If multiple, say customers can swipe to compare. Ends with: Tap the link to buy.",
-  "hashtags": ["20","relevant","lowercase","hashtags","no","hash","symbol","include","southafrica"],
-  "tips": "3 numbered practical tips for posting this content on ${plat}."
-}`;
-
-    const res=await fetch("https://api.anthropic.com/v1/messages",{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})
-    });
-    const data=await res.json();
-    const p=JSON.parse(data.content.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
-
-    clearInterval(mi_);
-    document.getElementById('loading').classList.remove('on');
-
-    document.getElementById('scEl').textContent=p.script;
-    document.getElementById('caEl').textContent=p.caption;
-    document.getElementById('tiEl').textContent=p.tips;
-    tags=p.hashtags; renderTags();
-
-    const sc=p.caption.substring(0,100)+(p.caption.length>100?'...':'');
-    const st='#'+p.hashtags.slice(0,4).join(' #');
-    ['ttC','fbC'].forEach(id=>document.getElementById(id).textContent=sc);
-    ['ttT','fbT'].forEach(id=>document.getElementById(id).textContent=st);
-
-    startCapAnim(p.script.split('\n'));
-    swUI(plat==='Facebook Reels'?'fb':'tt');
-    document.getElementById('output').classList.add('on');
-    document.getElementById('output').scrollIntoView({behavior:'smooth',block:'start'});
-
-  }catch(err){
-    clearInterval(mi_);
-    document.getElementById('loading').classList.remove('on');
-    alert('Something went wrong — please try again.');
-    console.error(err);
-  }
   document.getElementById('genBtn').disabled=false;
 }
 
@@ -1257,142 +974,7 @@ function resetAll(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ══ POST GUIDE TABS ══
-function swPostGuide(tab){
-  document.getElementById('guide-tt').style.display = tab==='tt'?'block':'none';
-  document.getElementById('guide-fb').style.display = tab==='fb'?'block':'none';
-  document.getElementById('pgTT').classList.toggle('on', tab==='tt');
-  document.getElementById('pgFB').classList.toggle('on', tab==='fb');
-}
-
-// ══ TOUCH SWIPE on phone ══
-(function(){
-  let startX=0, isDragging=false;
-  const wrap = ()=>document.getElementById('track')?.parentElement;
-  document.addEventListener('mousedown', e=>{
-    if(!wrap()||!e.target.closest('.slides-wrap')) return;
-    startX=e.clientX; isDragging=true;
-  });
-  document.addEventListener('mousemove', e=>{ if(!isDragging) return; });
-  document.addEventListener('mouseup', e=>{
-    if(!isDragging) return; isDragging=false;
-    const diff=startX-e.clientX;
-    if(Math.abs(diff)>30){ diff>0?nextSlide():prevSlide(); }
-  });
-  document.addEventListener('touchstart', e=>{
-    if(!e.target.closest('.slides-wrap')) return;
-    startX=e.touches[0].clientX;
-  }, {passive:true});
-  document.addEventListener('touchend', e=>{
-    if(!e.target.closest('.slides-wrap')) return;
-    const diff=startX-e.changedTouches[0].clientX;
-    if(Math.abs(diff)>30){ diff>0?nextSlide():prevSlide(); }
-  }, {passive:true});
-})();
-
-// ══ EXPANDABLE CAPTION on phone ══
-document.addEventListener('click', e=>{
-  const capLine=e.target.closest('.cap-line');
-  if(capLine){ capLine.classList.toggle('expanded'); return; }
-  const ttCap=e.target.closest('.tt-cap');
-  if(ttCap){ ttCap.classList.toggle('expanded'); return; }
-  const fbCap=e.target.closest('.fb-cap');
-  if(fbCap){ fbCap.classList.toggle('expanded'); }
-});
-
-// ══ PWA INSTALL LOGIC ══
-let deferredPrompt = null;
-
-// Register inline service worker for offline caching
-if('serviceWorker' in navigator){
-  const swCode=`
-    const CACHE='sa-affiliate-v1';
-    self.addEventListener('install',e=>{self.skipWaiting();});
-    self.addEventListener('activate',e=>{self.clients.claim();});
-    self.addEventListener('fetch',e=>{
-      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
-    });
-  `;
-  try{
-    const blob=new Blob([swCode],{type:'application/javascript'});
-    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
-  }catch(e){}
-}
-
-// Android/Chrome — capture native install prompt
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  setTimeout(()=>document.getElementById('installBanner').classList.add('show'),3000);
-});
-
-// iOS — show manual instructions after 3s if not already installed
-(function(){
-  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isStandalone=window.navigator.standalone===true;
-  if(isIOS&&!isStandalone){
-    setTimeout(()=>document.getElementById('iosModal').classList.add('show'),3000);
-  }
-})();
-
-function doInstall(){
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(c=>{
-      if(c.outcome==='accepted'){ dismissBanner(); pToast('✅ App installed! Find it on your home screen.'); }
-      deferredPrompt=null;
-    });
-  } else {
-    dismissBanner();
-    document.getElementById('iosModal').classList.add('show');
-  }
-}
-
-function dismissBanner(){
-  document.getElementById('installBanner').classList.remove('show');
-}
-
-window.addEventListener('appinstalled',()=>{
-  dismissBanner();
-  pToast('🎉 SA Affiliate Machine installed!');
-});
-
 if(window.speechSynthesis) window.speechSynthesis.getVoices();
 </script>
-<!-- PWA INSTALL BANNER (Android/Chrome) -->
-<div class="install-banner" id="installBanner">
-  <div class="app-icon">🤑</div>
-  <div class="banner-text">
-    <div class="banner-title">SA Affiliate Machine</div>
-    <div class="banner-sub">Install as an app — works offline, no browser bar</div>
-  </div>
-  <button class="install-btn" onclick="doInstall()">INSTALL</button>
-  <button class="dismiss-btn" onclick="dismissBanner()">✕</button>
-</div>
-
-<!-- iOS INSTALL INSTRUCTIONS MODAL -->
-<div class="ios-modal" id="iosModal">
-  <div class="ios-modal-box">
-    <h3>📱 ADD TO HOME SCREEN</h3>
-    <div class="ios-step">
-      <div class="ios-num">1</div>
-      <div>Tap the <strong>Share button</strong> at the bottom of your Safari browser (the box with an arrow pointing up ↑)</div>
-    </div>
-    <div class="ios-step">
-      <div class="ios-num">2</div>
-      <div>Scroll down and tap <strong>"Add to Home Screen"</strong></div>
-    </div>
-    <div class="ios-step">
-      <div class="ios-num">3</div>
-      <div>Tap <strong>"Add"</strong> in the top right corner</div>
-    </div>
-    <div class="ios-step">
-      <div class="ios-num">4</div>
-      <div>The app icon appears on your home screen — tap it to open like a real app!</div>
-    </div>
-    <button class="ios-close" onclick="document.getElementById('iosModal').classList.remove('show')">GOT IT — CLOSE</button>
-  </div>
-</div>
-
 </body>
 </html>
