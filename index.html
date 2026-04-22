@@ -208,7 +208,195 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .lkdisp span{color:var(--accent2);font-weight:700;}
 .disc{text-align:center;font-size:11px;color:var(--muted);margin-top:18px;line-height:1.7;}
 
-@keyframes spin{to{transform:rotate(360deg);}}
+/* HOW TO USE BUTTON */
+.how-btn{
+  margin-top:16px;
+  padding:12px 28px;
+  background:transparent;
+  border:2px solid var(--accent2);
+  border-radius:10px;
+  color:var(--accent2);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:all .2s;
+}
+.how-btn:hover{background:rgba(255,179,0,.1);transform:translateY(-2px);}
+
+/* GUIDE MODAL OVERLAY */
+.guide-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.88);
+  z-index:9998;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:20px 12px 40px;
+  overflow-y:auto;
+}
+.guide-overlay.show{display:flex;}
+
+/* GUIDE BOX */
+.guide-box{
+  background:#12121f;
+  border:1px solid var(--border);
+  border-radius:18px;
+  width:100%;
+  max-width:680px;
+  overflow:hidden;
+  animation:fadeUp .3s ease both;
+  position:relative;
+}
+
+/* GUIDE HEADER */
+.guide-header{
+  background:linear-gradient(135deg,var(--accent),#ff8c00);
+  padding:22px 24px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.guide-header h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px;
+  letter-spacing:3px;
+  color:#fff;
+}
+.guide-close{
+  background:rgba(0,0,0,.25);
+  border:none;
+  border-radius:50%;
+  width:34px;height:34px;
+  color:#fff;font-size:18px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+/* GUIDE TABS */
+.guide-tabs{
+  display:flex;
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+  background:var(--surface);
+}
+.guide-tab{
+  padding:12px 16px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  cursor:pointer;
+  white-space:nowrap;
+  border-bottom:3px solid transparent;
+  transition:all .2s;
+  font-family:'DM Sans',sans-serif;
+}
+.guide-tab:hover{color:var(--text);}
+.guide-tab.on{color:var(--accent2);border-bottom-color:var(--accent2);}
+
+/* GUIDE CONTENT */
+.guide-content{padding:24px;}
+.guide-panel{display:none;}
+.guide-panel.on{display:block;}
+
+.gsection{margin-bottom:24px;}
+.gsection-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;
+  letter-spacing:2px;
+  color:var(--accent2);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.gsection-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.gstep{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+}
+.gnum{
+  width:28px;height:28px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.gtext{font-size:13px;color:#d0d0e8;line-height:1.7;}
+.gtext strong{color:var(--text);}
+.gtext a{color:var(--accent2);text-decoration:none;}
+.gtext a:hover{text-decoration:underline;}
+
+.gtip{
+  background:rgba(255,179,0,.07);
+  border:1px solid rgba(255,179,0,.25);
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:12px;
+  color:#d0d0e8;
+  line-height:1.7;
+  margin-bottom:10px;
+}
+.gtip strong{color:var(--accent2);}
+
+.glink-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 16px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+  color:#fff;
+  margin:4px 4px 4px 0;
+  transition:all .2s;
+}
+.glink-btn:hover{transform:translateY(-1px);filter:brightness(1.1);}
+.glink-btn.takealot{background:#e53935;}
+.glink-btn.amazon{background:#ff9900;color:#000;}
+.glink-btn.temu{background:linear-gradient(135deg,#ff6b35,#f7931e);}
+
+.earnings-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.earnings-table th{background:var(--surface);color:var(--accent2);padding:8px 10px;text-align:left;font-size:11px;letter-spacing:1px;}
+.earnings-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:#d0d0e8;}
+.earnings-table tr:last-child td{border-bottom:none;}
+
+.guide-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+}
+.gnav-btn{
+  flex:1;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .2s;
+}
+.gnav-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+.gnav-btn.next{background:var(--accent);border-color:var(--accent);color:#fff;}
+.gnav-btn.next:hover{filter:brightness(1.1);}
+.gnav-btn:disabled{opacity:.3;cursor:not-allowed;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scrollText{0%{transform:translateX(60%);}100%{transform:translateX(-280%);}}
@@ -222,6 +410,7 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
   <div class="badge">🇿🇦 Plug &amp; Play Affiliate Tool</div>
   <h1>SA AFFILIATE<br>MACHINE</h1>
   <p class="tagline">Load products from any store · Customer picks the best · You earn commission</p>
+  <button class="how-btn" onclick="openGuide()">📖 HOW TO USE THIS APP</button>
 </div>
 
 <!-- STEP 1: CATEGORY -->
@@ -974,7 +1163,302 @@ function resetAll(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+// ══ HOW TO USE GUIDE ══
+let currentGuideTab = 0;
+const TOTAL_TABS = 6;
+
+function openGuide(){
+  document.getElementById('guideOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+  showGuideTab(0);
+}
+
+function closeGuide(){
+  document.getElementById('guideOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+
+function closeGuideOutside(e){
+  if(e.target===document.getElementById('guideOverlay')) closeGuide();
+}
+
+function showGuideTab(idx){
+  currentGuideTab=idx;
+  // Update tabs
+  for(let i=0;i<TOTAL_TABS;i++){
+    document.getElementById('gtab'+i).classList.toggle('on',i===idx);
+    document.getElementById('gpanel'+i).classList.toggle('on',i===idx);
+  }
+  // Update nav buttons
+  document.getElementById('guidePrevBtn').disabled = idx===0;
+  document.getElementById('guideNextBtn').textContent = idx===TOTAL_TABS-1 ? '✕ Close' : 'Next →';
+  // Scroll guide content to top
+  document.querySelector('.guide-content').scrollTop=0;
+}
+
+function guideNavNext(){
+  if(currentGuideTab<TOTAL_TABS-1) showGuideTab(currentGuideTab+1);
+  else closeGuide();
+}
+
+function guideNavPrev(){
+  if(currentGuideTab>0) showGuideTab(currentGuideTab-1);
+}
+
 if(window.speechSynthesis) window.speechSynthesis.getVoices();
 </script>
+<!-- ═══ HOW TO USE MODAL ═══ -->
+<div class="guide-overlay" id="guideOverlay" onclick="closeGuideOutside(event)">
+<div class="guide-box">
+
+  <div class="guide-header">
+    <h2>📖 HOW TO USE THIS APP</h2>
+    <button class="guide-close" onclick="closeGuide()">✕</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="guide-tabs">
+    <div class="guide-tab on"  id="gtab0" onclick="showGuideTab(0)">🚀 Getting Started</div>
+    <div class="guide-tab"     id="gtab1" onclick="showGuideTab(1)">💰 Register & Earn</div>
+    <div class="guide-tab"     id="gtab2" onclick="showGuideTab(2)">📱 Using the App</div>
+    <div class="guide-tab"     id="gtab3" onclick="showGuideTab(3)">🔗 Get Product Links</div>
+    <div class="guide-tab"     id="gtab4" onclick="showGuideTab(4)">🎬 Record & Post</div>
+    <div class="guide-tab"     id="gtab5" onclick="showGuideTab(5)">💵 How You Get Paid</div>
+  </div>
+
+  <div class="guide-content">
+
+    <!-- TAB 0: GETTING STARTED -->
+    <div class="guide-panel on" id="gpanel0">
+      <div class="gsection">
+        <div class="gsection-title">What is this app?</div>
+        <div class="gtip">
+          <strong>SA Affiliate Machine</strong> helps you earn money by promoting products from Takealot, Amazon and Temu on TikTok and Facebook Reels.<br><br>
+          You do <strong>not</strong> buy or sell anything yourself. You simply share a product link. When someone clicks your link and buys — the store pays you a commission automatically every month.
+        </div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">How the money works</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">You find a product on Takealot or Amazon</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">You get a special tracking link from the store's affiliate programme</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">This app writes your video script, caption and hashtags for you</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">You film a short video and post it on TikTok or Facebook with your link</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Someone watches, clicks your link and buys the product</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">The store pays you 3%–10% commission — directly to your bank account monthly</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Example earnings</div>
+        <table class="earnings-table">
+          <tr><th>Product</th><th>Price</th><th>Commission</th><th>10 Sales/day</th></tr>
+          <tr><td>Solar Panel</td><td>R3,000</td><td>5% = R150</td><td>R1,500/day</td></tr>
+          <tr><td>Air Fryer</td><td>R1,200</td><td>5% = R60</td><td>R600/day</td></tr>
+          <tr><td>Dumbbells</td><td>R900</td><td>5% = R45</td><td>R450/day</td></tr>
+          <tr><td>Baby Monitor</td><td>R1,300</td><td>5% = R65</td><td>R650/day</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 1: REGISTER & EARN -->
+    <div class="guide-panel" id="gpanel1">
+      <div class="gsection">
+        <div class="gsection-title">Register on Takealot Affiliates</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.takealot.com/affiliates" target="_blank">www.takealot.com/affiliates</a> and click <strong>Sign Up</strong></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Fill in your name, email address and create a password</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Enter your website or social media page (you can use your TikTok or Facebook profile link)</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Submit and wait for approval — usually within 24 hours</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Once approved, log in and search for any product — click <strong>Get Link</strong> to get your personal tracking link</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Use that link in your posts — every sale earns you <strong>3%–7% commission</strong></div></div>
+        <a class="glink-btn takealot" href="https://www.takealot.com/affiliates" target="_blank">🛍️ Register on Takealot</a>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Register on Amazon Associates</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://affiliate-program.amazon.com" target="_blank">affiliate-program.amazon.com</a> and click <strong>Sign Up</strong></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Sign in with your Amazon account or create one free</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Enter your website or social media profile link</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Choose your preferred categories</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Once approved — search any product and click <strong>Get Link</strong> to generate your tracking link</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Commission is <strong>1%–10%</strong> depending on category</div></div>
+        <a class="glink-btn amazon" href="https://affiliate-program.amazon.com" target="_blank">📦 Register on Amazon</a>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Register on Temu Affiliate</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.temu.com/affiliate-program.html" target="_blank">www.temu.com/affiliate-program.html</a></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Click <strong>Join Now</strong> and create a free account</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Link your TikTok or Facebook profile</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Once approved, get your tracking links from the dashboard</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Temu pays up to <strong>20% commission</strong> — one of the highest available</div></div>
+        <a class="glink-btn temu" href="https://www.temu.com/affiliate-program.html" target="_blank">🛒 Register on Temu</a>
+      </div>
+    </div>
+
+    <!-- TAB 2: USING THE APP -->
+    <div class="guide-panel" id="gpanel2">
+      <div class="gsection">
+        <div class="gsection-title">Step 1 — Choose a Category</div>
+        <div class="gtip">Tap one of the 8 product categories — Load Shedding, Tech, Kitchen, Fitness, Car, Baby, Beauty or Home. The store buttons will automatically update to show products in that category.</div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Step 2 — Choose Your Platform</div>
+        <div class="gtip">Tap where you want to post your video — TikTok, Facebook Reels, Instagram Reels or YouTube Shorts. The app will tailor your content for that platform.</div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Step 3 — Add Products</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Tap a store button — <strong>Browse Takealot, Browse Amazon</strong> etc — it opens directly to your category</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Find a product you like and click on it</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Copy the web address from your browser bar — on PC press <strong>Ctrl+C</strong>, on phone tap the address bar then tap Copy</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Come back to the app, paste the link in the box and tap <strong>+ ADD</strong></div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Tap <strong>✏️ Fix Price</strong> on the product card and type the correct price from the store</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Tap the 📷 box to upload a photo of the product — save the photo from the store page first then upload it</div></div>
+        <div class="gstep"><div class="gnum">7</div><div class="gtext">Add the same product from different stores so customers can compare prices</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Step 4 — Generate Your Content</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Tap <strong>⚡ GENERATE EVERYTHING NOW</strong></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">The app instantly creates your full video script, post caption, 20 hashtags and posting tips</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>✏️ Edit</strong> on the caption to add your affiliate tracking link</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Tap <strong>📋 Copy</strong> to copy each section ready to paste when posting</div></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: GET PRODUCT LINKS -->
+    <div class="guide-panel" id="gpanel3">
+      <div class="gsection">
+        <div class="gsection-title">On your PC (easiest method)</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Open any store website on your PC</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Click on a product you want to promote</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Click on the address bar at the top of your browser — it highlights blue</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Press <strong>Ctrl+C</strong> to copy the link</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">WhatsApp the link to yourself then open it on your phone and paste into the app</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">On your phone — Chrome browser</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Open the product page in Chrome on your phone</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Tap the <strong>three dots ⋮</strong> at the top right of Chrome</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>Share</strong></div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Tap <strong>Copy link</strong></div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Go back to the app and paste the link in the + ADD box</div></div>
+        <div class="gtip"><strong>Works on every store</strong> — Takealot, Temu, Makro, Superbalist and all others. This method never fails.</div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">How to get your product photo</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">On the product card tap <strong>View product page →</strong></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">On PC — right-click the main product photo and click <strong>Save image as</strong> — save to your PC</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">On phone — hold your finger on the product photo and tap <strong>Download image</strong> or <strong>Save image</strong></div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Go back to the app — tap the 📷 box on the product card and upload the saved photo</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">The photo appears on the phone screen preview — it will scroll between all your products</div></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: RECORD & POST -->
+    <div class="guide-panel" id="gpanel4">
+      <div class="gsection">
+        <div class="gsection-title">How to film your video</div>
+        <div class="gtip"><strong>You do not need expensive equipment.</strong> Your phone camera is all you need. Keep it simple and honest — people trust real people more than polished adverts.</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Hold your phone <strong>vertically</strong> (portrait mode — tall not wide)</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Find good lighting — face a window or go outside. Avoid filming with a bright light behind you</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Prop your phone against something steady — a glass, a book, a phone stand</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Open your video script from the app — read it out loud while holding or pointing at the product</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Keep it between <strong>45 and 60 seconds</strong></div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">You do NOT need to show your face — you can film just the product on a table while you talk</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Post on TikTok</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Open TikTok and tap the <strong>+ button</strong> at the bottom</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Tap <strong>Upload</strong> and select your video from your gallery</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>Next</strong> — you see a box that says <strong>"Describe your video"</strong></div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Paste your <strong>Post Caption</strong> (copy it from the app first)</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Paste your <strong>Hashtags</strong> at the bottom of the caption</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Make sure your <strong>affiliate tracking link</strong> is included in the caption</div></div>
+        <div class="gstep"><div class="gnum">7</div><div class="gtext">Tap <strong>Post</strong> — your video is live!</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Post on Facebook Reels</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Open Facebook and tap <strong>Reels</strong> at the top of your feed</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Tap the <strong>+ Create</strong> button and select your video</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>Next</strong> — you see a box that says <strong>"Write a description"</strong></div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Paste your <strong>Post Caption</strong> and then your <strong>Hashtags</strong></div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Include your affiliate tracking link in the caption</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Tap <strong>Share</strong> — your Reel is live!</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Post on Instagram Reels</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Open Instagram and tap the <strong>+ button</strong> top right</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Select <strong>Reel</strong> and choose your video</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>Next</strong> — tap <strong>"Write a caption"</strong></div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Paste your caption and hashtags</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext"><strong>Important:</strong> Instagram does not allow clickable links in captions — put your affiliate link in your BIO and say "Link in bio" in your caption</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Tap <strong>Share</strong> — done!</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Best times to post in South Africa</div>
+        <div class="gtip">
+          🎵 <strong>TikTok:</strong> 7pm – 9pm daily<br>
+          📘 <strong>Facebook:</strong> 12pm – 2pm or 7pm – 9pm<br>
+          📸 <strong>Instagram:</strong> 6pm – 8pm<br>
+          ▶️ <strong>YouTube:</strong> 2pm – 4pm weekdays<br><br>
+          Post at least <strong>once every day</strong> for best results.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: HOW YOU GET PAID -->
+    <div class="guide-panel" id="gpanel5">
+      <div class="gsection">
+        <div class="gsection-title">How tracking works</div>
+        <div class="gtip">When you register as an affiliate, each store gives you a <strong>unique tracking link</strong> with your ID built into it. Every time someone taps your link and buys — the store's system records it against your account automatically. You never have to do anything manually.</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">You post your video with your affiliate tracking link</div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">A viewer taps your link and goes to the store</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">They buy the product — the store records it came from YOUR link</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Your commission is added to your affiliate account balance</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">At the end of each month the store pays your balance to your bank account</div></div>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Commission rates</div>
+        <table class="earnings-table">
+          <tr><th>Store</th><th>Commission</th><th>Payout</th></tr>
+          <tr><td>Takealot</td><td>3% – 7%</td><td>Monthly</td></tr>
+          <tr><td>Amazon SA</td><td>1% – 10%</td><td>Monthly</td></tr>
+          <tr><td>Temu</td><td>Up to 20%</td><td>Monthly</td></tr>
+          <tr><td>Superbalist</td><td>5% – 8%</td><td>Monthly</td></tr>
+        </table>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Tips to earn more</div>
+        <div class="gtip">
+          ✅ Pick <strong>one niche</strong> and become the expert in it — the "load shedding deals person" or the "kitchen gadgets person"<br><br>
+          ✅ <strong>Post every single day</strong> — even one video a day builds up your audience fast<br><br>
+          ✅ <strong>Compare prices</strong> across stores — customers love saving money and will trust you more<br><br>
+          ✅ <strong>Reply to every comment</strong> in the first hour — it signals engagement to the algorithm<br><br>
+          ✅ <strong>Videos stay forever</strong> — a video you posted 6 months ago can still earn you commission today<br><br>
+          ✅ Always tell your audience the link is an affiliate link — it builds trust and is required by law
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION BUTTONS -->
+    <div class="guide-nav">
+      <button class="gnav-btn" id="guidePrevBtn" onclick="guideNavPrev()" disabled>← Previous</button>
+      <button class="gnav-btn next" id="guideNextBtn" onclick="guideNavNext()">Next →</button>
+    </div>
+
+  </div><!-- /guide-content -->
+</div><!-- /guide-box -->
+</div><!-- /guide-overlay -->
+
 </body>
 </html>
