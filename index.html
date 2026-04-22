@@ -2,8 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>SA Affiliate Machine</title>
+
+<!-- PWA META TAGS -->
+<meta name="application-name" content="SA Affiliate Machine">
+<meta name="description" content="Earn commission promoting products on TikTok and Facebook Reels. South African affiliate marketing tool.">
+<meta name="theme-color" content="#ff4500">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SA Affiliate">
+
+<!-- Inline manifest -->
+<link rel="manifest" href="data:application/json;charset=utf-8,{%22name%22:%22SA%20Affiliate%20Machine%22,%22short_name%22:%22SA%20Affiliate%22,%22description%22:%22Earn%20commission%20promoting%20products%20on%20TikTok%20and%20Facebook%20Reels%22,%22start_url%22:%22./%22,%22display%22:%22standalone%22,%22background_color%22:%22%2307070f%22,%22theme_color%22:%22%23ff4500%22,%22orientation%22:%22portrait-primary%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='100'%20fill='%23ff4500'/%3E%3Ctext%20x='256'%20y='380'%20text-anchor='middle'%20font-size='320'%3E%F0%9F%A4%91%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}]}">
+
+<!-- Apple touch icon — shows on iPhone home screen -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%23ff4500'/><text x='256' y='380' text-anchor='middle' font-size='320'>🤑</text></svg>">
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -401,6 +417,30 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scrollText{0%{transform:translateX(60%);}100%{transform:translateX(-280%);}}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* ══ PWA INSTALL BANNER ══ */
+.install-banner{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#12121f,#1a1a2e);border-top:3px solid var(--accent);padding:14px 16px;z-index:99999;transform:translateY(110%);transition:transform .45s cubic-bezier(.4,0,.2,1);box-shadow:0 -8px 40px rgba(0,0,0,.7);display:flex;align-items:center;gap:12px;}
+.install-banner.show{transform:translateY(0);}
+.ib-icon{width:50px;height:50px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.ib-text{flex:1;}
+.ib-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;}
+.ib-sub{font-size:11px;color:rgba(255,255,255,.6);}
+.ib-install{padding:11px 18px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;flex-shrink:0;transition:all .2s;}
+.ib-install:hover{filter:brightness(1.15);}
+.ib-close{background:transparent;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px;flex-shrink:0;}
+
+/* ══ iOS INSTALL MODAL ══ */
+.ios-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:none;align-items:flex-end;justify-content:center;padding:16px;}
+.ios-overlay.show{display:flex;}
+.ios-box{background:#1a1a2e;border:1px solid var(--border);border-radius:20px;padding:26px;max-width:420px;width:100%;animation:fadeUp .3s ease both;}
+.ios-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent2);margin-bottom:16px;text-align:center;}
+.ios-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:13px;color:#d0d0e8;line-height:1.6;}
+.ios-num{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.ios-close-btn{width:100%;padding:14px;background:var(--accent);border:none;border-radius:11px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;margin-top:8px;}
+
+/* ══ ALREADY INSTALLED NOTICE ══ */
+.installed-notice{display:none;background:rgba(0,224,150,.1);border:1px solid var(--success);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:12px;color:var(--success);text-align:center;}
+.installed-notice.show{display:block;}
 </style>
 </head>
 <body>
@@ -410,7 +450,11 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
   <div class="badge">🇿🇦 Plug &amp; Play Affiliate Tool</div>
   <h1>SA AFFILIATE<br>MACHINE</h1>
   <p class="tagline">Load products from any store · Customer picks the best · You earn commission</p>
-  <button class="how-btn" onclick="openGuide()">📖 HOW TO USE THIS APP</button>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;">
+    <button class="how-btn" onclick="openGuide()">📖 HOW TO USE THIS APP</button>
+    <button class="how-btn" id="headerInstallBtn" onclick="triggerInstall()" style="display:none;background:var(--accent);border-color:var(--accent);color:#fff;">📲 INSTALL APP</button>
+  </div>
+  <div class="installed-notice" id="installedNotice">✅ App installed! Find the SA Affiliate Machine icon on your home screen.</div>
 </div>
 
 <!-- STEP 1: CATEGORY -->
@@ -1205,6 +1249,108 @@ function guideNavPrev(){
   if(currentGuideTab>0) showGuideTab(currentGuideTab-1);
 }
 
+// ══ PWA INSTALL SYSTEM ══
+let deferredPrompt = null;
+let isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+// Register service worker for offline support
+if('serviceWorker' in navigator){
+  const sw = `
+    const CACHE='sa-affiliate-v2';
+    self.addEventListener('install',e=>{self.skipWaiting();});
+    self.addEventListener('activate',e=>{
+      e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
+      self.clients.claim();
+    });
+    self.addEventListener('fetch',e=>{
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
+        if(res.ok){const c=res.clone();caches.open(CACHE).then(cache=>cache.put(e.request,c));}
+        return res;
+      }).catch(()=>r)));
+    });
+  `;
+  try{
+    const blob=new Blob([sw],{type:'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+  }catch(e){}
+}
+
+// If already installed as app — show confirmation notice
+if(isInstalled){
+  document.getElementById('installedNotice').classList.add('show');
+}
+
+// Android/Chrome — capture the native install prompt
+window.addEventListener('beforeinstallprompt', e=>{
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show the install banner after 2 seconds
+  setTimeout(()=>{
+    if(!isInstalled) showInstallBanner();
+  }, 2000);
+  // Also show the header install button
+  document.getElementById('headerInstallBtn').style.display='inline-flex';
+});
+
+// iPhone/iPad — detect Safari and show manual instructions
+function checkIOS(){
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /safari/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent);
+  if(isIOS && !isInstalled){
+    // Show header install button for iOS too
+    document.getElementById('headerInstallBtn').style.display='inline-flex';
+    // Show iOS instructions after 2 seconds
+    setTimeout(()=>{ document.getElementById('iosOverlay').classList.add('show'); }, 2000);
+  }
+}
+checkIOS();
+
+function showInstallBanner(){
+  document.getElementById('installBanner').classList.add('show');
+}
+
+function dismissBanner(){
+  document.getElementById('installBanner').classList.remove('show');
+}
+
+function closeIos(){
+  document.getElementById('iosOverlay').classList.remove('show');
+}
+
+// Called by both the banner INSTALL button and the header INSTALL APP button
+function triggerInstall(){
+  if(deferredPrompt){
+    // Android — use native prompt
+    doInstall();
+  } else {
+    // iOS or other — show manual instructions
+    document.getElementById('iosOverlay').classList.add('show');
+    dismissBanner();
+  }
+}
+
+function doInstall(){
+  if(!deferredPrompt){ triggerInstall(); return; }
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(choice=>{
+    if(choice.outcome==='accepted'){
+      dismissBanner();
+      document.getElementById('headerInstallBtn').style.display='none';
+      document.getElementById('installedNotice').classList.add('show');
+      pToast('🎉 SA Affiliate Machine installed! Find it on your home screen.');
+    }
+    deferredPrompt=null;
+  });
+}
+
+// Hide banner once app is installed via any method
+window.addEventListener('appinstalled',()=>{
+  dismissBanner();
+  document.getElementById('headerInstallBtn').style.display='none';
+  document.getElementById('installedNotice').classList.add('show');
+  isInstalled=true;
+});
+
 if(window.speechSynthesis) window.speechSynthesis.getVoices();
 </script>
 <!-- ═══ HOW TO USE MODAL ═══ -->
@@ -1459,6 +1605,41 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
   </div><!-- /guide-content -->
 </div><!-- /guide-box -->
 </div><!-- /guide-overlay -->
+
+<!-- ══ ANDROID/CHROME INSTALL BANNER ══ -->
+<div class="install-banner" id="installBanner">
+  <div class="ib-icon">🤑</div>
+  <div class="ib-text">
+    <div class="ib-title">Install SA Affiliate Machine</div>
+    <div class="ib-sub">Add to home screen — works like a real app</div>
+  </div>
+  <button class="ib-install" onclick="doInstall()">📲 INSTALL</button>
+  <button class="ib-close" onclick="dismissBanner()">✕</button>
+</div>
+
+<!-- ══ iOS INSTALL INSTRUCTIONS MODAL ══ -->
+<div class="ios-overlay" id="iosOverlay">
+  <div class="ios-box">
+    <h3>📲 ADD TO HOME SCREEN</h3>
+    <div class="ios-step">
+      <div class="ios-num">1</div>
+      <div>Tap the <strong style="color:#fff;">Share button</strong> at the bottom of Safari — it looks like a box with an arrow pointing up ↑</div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">2</div>
+      <div>Scroll down the menu and tap <strong style="color:#fff;">"Add to Home Screen"</strong></div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">3</div>
+      <div>Tap <strong style="color:#fff;">"Add"</strong> in the top right corner</div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-num">4</div>
+      <div>The <strong style="color:var(--accent2);">SA Affiliate Machine</strong> icon appears on your home screen — tap it to open like a real app!</div>
+    </div>
+    <button class="ios-close-btn" onclick="closeIos()">✅ GOT IT — CLOSE</button>
+  </div>
+</div>
 
 </body>
 </html>
