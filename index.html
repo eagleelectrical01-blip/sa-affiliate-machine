@@ -61,11 +61,10 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 .store-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .store-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;text-decoration:none;color:#fff;font-family:'DM Sans',sans-serif;}
 .store-btn:hover{transform:translateY(-2px);filter:brightness(1.12);}
-.store-btn.takealot{background:#e53935;}
+.store-btn.loot{background:#e65100;}
 .store-btn.amazon{background:#ff9900;color:#000;}
 .store-btn.temu{background:linear-gradient(135deg,#ff6b35,#f7931e);}
-.store-btn.superbalist{background:#333;border:1px solid #666;}
-.store-btn.makro{background:#00457c;}
+.store-btn.zando{background:#880e4f;}
 .store-btn.faithful{background:#2e7d32;}
 
 /* ADD PRODUCT FORM */
@@ -379,7 +378,7 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
   transition:all .2s;
 }
 .glink-btn:hover{transform:translateY(-1px);filter:brightness(1.1);}
-.glink-btn.takealot{background:#e53935;}
+.glink-btn.loot{background:#e65100;}
 .glink-btn.amazon{background:#ff9900;color:#000;}
 .glink-btn.temu{background:linear-gradient(135deg,#ff6b35,#f7931e);}
 
@@ -490,18 +489,18 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
   <!-- Store open buttons — auto-search category -->
   <p style="font-size:11px;color:var(--muted);margin-bottom:9px;">① Click a store — it opens directly to your chosen category. Find a product you like:</p>
   <div class="store-btns" id="storeBtns">
-    <a class="store-btn takealot" id="linkTakealot" href="#" target="_blank" rel="noopener">🛍️ Browse Takealot</a>
-    <a class="store-btn amazon" id="linkAmazon" href="#" target="_blank" rel="noopener">📦 Browse Amazon SA</a>
-    <a class="store-btn temu" id="linkTemu" href="#" target="_blank" rel="noopener">🛒 Browse Temu</a>
-    <a class="store-btn superbalist" id="linkSuperbalist" href="#" target="_blank" rel="noopener">👗 Browse Superbalist</a>
-    <a class="store-btn makro" id="linkMakro" href="#" target="_blank" rel="noopener">🏪 Browse Makro</a>
+    <a class="store-btn amazon" id="linkAmazon" href="https://www.amazon.co.za" target="_blank" rel="noopener">📦 Browse Amazon SA</a>
+    <a class="store-btn temu" id="linkTemu" href="https://www.temu.com" target="_blank" rel="noopener">🛒 Browse Temu</a>
+    <a class="store-btn" id="linkLoot" href="https://www.loot.co.za" target="_blank" rel="noopener" style="background:#e65100;">🛍️ Browse Loot.co.za</a>
+    <a class="store-btn faithful" id="linkFaithful" href="https://www.faithful2nature.co.za" target="_blank" rel="noopener">🌿 Browse Faithful2Nature</a>
+    <a class="store-btn" id="linkZando" href="https://www.zando.co.za" target="_blank" rel="noopener" style="background:#880e4f;">👗 Browse Zando</a>
   </div>
 
   <!-- Paste URL and add -->
   <div class="add-form">
     <div class="add-form-title">② Copy the product page address from your browser bar and paste it here:</div>
     <div class="add-row">
-      <input class="add-input" id="addUrl" type="text" placeholder="Paste product link here — e.g. https://www.takealot.com/trade-kite-sandwich-maker..."/>
+      <input class="add-input" id="addUrl" type="text" placeholder="Paste product link here — e.g. https://www.amazon.co.za/dp/B08N5WRWNW or https://www.loot.co.za/product/..."/>
       <button class="add-btn" onclick="addProduct()" id="addBtn">+ ADD</button>
     </div>
     <div class="add-hint" id="addHint">
@@ -582,11 +581,14 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,78px);line-heigh
 
   <div class="ocard aff-links" style="border-color:var(--accent2);">
     <div class="ocard-title" style="margin-bottom:8px;">🔗 REGISTER FOR AFFILIATE COMMISSION</div>
-    <p style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.7;">Sign up free at each store. They give you a personal tracking link. Every time someone buys through your link, you earn a commission:</p>
-    <a href="https://www.takealot.com/affiliates" target="_blank">→ Takealot Affiliate Programme</a>
-    <a href="https://affiliate-program.amazon.com" target="_blank">→ Amazon Associates Programme</a>
-    <a href="https://www.temu.com/affiliate-program.html" target="_blank">→ Temu Affiliate Programme</a>
-    <a href="https://superbalist.com" target="_blank">→ Superbalist Partner Programme</a>
+    <p style="font-size:11px;color:var(--accent);margin-bottom:6px;font-weight:700;">⚠️ Takealot has NO affiliate programme — do not look for one.</p>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.7;">Use these stores instead — they all pay commission directly to your South African bank account:</p>
+    <a href="https://affiliate-program.amazon.com" target="_blank">📦 Amazon Associates — 1% to 10% commission — has everything</a>
+    <a href="https://www.temu.com/affiliate-program.html" target="_blank">🛒 Temu Affiliate — up to 20% commission — highest available</a>
+    <a href="https://www.loot.co.za/content/affiliate-programme" target="_blank">🛍️ Loot.co.za — 5% commission — South African store, pays in Rands</a>
+    <a href="https://www.faithful2nature.co.za/pages/affiliate-programme" target="_blank">🌿 Faithful to Nature — up to 15% commission — beauty & health</a>
+    <a href="https://www.zando.co.za/info/affiliate-programme/" target="_blank">👗 Zando — 5% commission — fashion & shoes</a>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.7;">💡 <strong style="color:var(--text);">Start with Amazon and Temu.</strong> Widest product range, easiest sign-up, approved within 24–48 hours.</p>
   </div>
 
   <button class="gen-btn" onclick="doGenerate()">🔄 REGENERATE CONTENT</button>
@@ -677,49 +679,58 @@ let cat='', catKey='', plat='', products=[], slides=[], si=0, capTimer=null, cap
 
 // ══ CATEGORY SEARCH TERMS per store ══
 const CAT_SEARCH = {
-  loadshedding:{takealot:'load+shedding+solar+power',amazon:'solar+power+bank+inverter',temu:'solar+power+bank',superbalist:'',makro:'inverter+solar'},
-  tech:        {takealot:'smartphone+earbuds+budget',amazon:'budget+smartphone+tech',temu:'smartphone+accessories',superbalist:'tech+accessories',makro:'smartphone'},
-  kitchen:     {takealot:'kitchen+gadgets+air+fryer',amazon:'kitchen+gadgets+appliances',temu:'kitchen+gadgets',superbalist:'',makro:'kitchen+appliances'},
-  fitness:     {takealot:'fitness+equipment+dumbbells',amazon:'home+gym+equipment',temu:'fitness+equipment',superbalist:'fitness',makro:'gym'},
-  car:         {takealot:'car+accessories',amazon:'car+accessories',temu:'car+accessories',superbalist:'',makro:'car+accessories'},
-  baby:        {takealot:'baby+products+stroller',amazon:'baby+products',temu:'baby+products',superbalist:'baby',makro:'baby'},
-  beauty:      {takealot:'beauty+skincare+makeup',amazon:'skincare+beauty',temu:'skincare+beauty',superbalist:'beauty+skincare',makro:'beauty'},
-  home:        {takealot:'home+decor+garden',amazon:'home+garden',temu:'home+decor',superbalist:'home+decor',makro:'home+garden'}
+  loadshedding:{amazon:'solar+power+bank+inverter+load+shedding', temu:'solar+power+bank+portable+inverter', loot:'load+shedding+solar+inverter+power', faithful:'', zando:''},
+  tech:        {amazon:'budget+smartphone+earbuds+smartwatch',    temu:'smartphone+accessories+earbuds+tech', loot:'smartphone+electronics+laptop+tablet', faithful:'', zando:''},
+  kitchen:     {amazon:'kitchen+gadgets+air+fryer+appliances',    temu:'kitchen+gadgets+air+fryer+blender',   loot:'kitchen+gadgets+appliances+airfryer', faithful:'', zando:''},
+  fitness:     {amazon:'home+gym+equipment+dumbbells+resistance', temu:'fitness+equipment+resistance+bands',  loot:'fitness+equipment+dumbbells+gym',    faithful:'', zando:'running+shoes+sportswear'},
+  car:         {amazon:'car+accessories+dash+cam+charger',        temu:'car+accessories+phone+holder+cam',    loot:'car+accessories+dash+cam',           faithful:'', zando:''},
+  baby:        {amazon:'baby+products+stroller+monitor',          temu:'baby+products+stroller+monitor',      loot:'baby+products+toddler+stroller',     faithful:'baby+natural+organic', zando:'baby+kids+clothing'},
+  beauty:      {amazon:'skincare+beauty+makeup+moisturiser',      temu:'skincare+beauty+makeup+serum',        loot:'beauty+skincare+makeup',             faithful:'natural+skincare+beauty+organic', zando:'beauty+skincare+makeup'},
+  home:        {amazon:'home+decor+garden+tools+smart',           temu:'home+decor+garden+lights',            loot:'home+decor+garden+tools',            faithful:'home+natural+eco+cleaning', zando:'home+decor'}
 };
 
 // ══ STORE URL BUILDERS ══
 function storeUrl(store, term){
   if(!term) return null;
-  const t = term;
+  const t = encodeURIComponent(term.replace(/\+/g,' '));
   const map = {
-    takealot:`https://www.takealot.com/all?q=${t}&qsrc=1`,
     amazon:  `https://www.amazon.co.za/s?k=${t}`,
-    temu:    `https://www.temu.com/search_result.html?search_key=${t.replace(/\+/g,' ')}&search_method=user`,
-    superbalist:`https://superbalist.com/search#?q=${t.replace(/\+/g,'%20')}`,
-    makro:   `https://www.makro.co.za/search?text=${t}`
+    temu:    `https://www.temu.com/search_result.html?search_key=${term.replace(/\+/g,' ')}&search_method=user`,
+    loot:    `https://www.loot.co.za/search?cat=&terms=${t}`,
+    faithful:`https://www.faithful2nature.co.za/catalogsearch/result/?q=${t}`,
+    zando:   `https://www.zando.co.za/catalogsearch/result/?q=${t}`
   };
-  return map[store]||'#';
+  return map[store]||null;
 }
 
 // ══ CLOCK ══
 function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours()+':'+(n.getMinutes()<10?'0':'')+n.getMinutes();}
 setInterval(tick,10000);tick();
 
+// Set default URLs on load so buttons always work
+(function(){
+  const defaults={amazon:'https://www.amazon.co.za',temu:'https://www.temu.com',loot:'https://www.loot.co.za',faithful:'https://www.faithful2nature.co.za',zando:'https://www.zando.co.za'};
+  Object.entries(defaults).forEach(([s,url])=>{
+    const el=document.getElementById('link'+s.charAt(0).toUpperCase()+s.slice(1));
+    if(el) el.href=url;
+  });
+})();
+
 // ══ SELECTORS ══
 function selCat(btn,label,key){
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   cat=label; catKey=key;
-  // Update all store links to search for this category
   const s=CAT_SEARCH[key]||{};
-  ['takealot','amazon','temu','superbalist','makro'].forEach(store=>{
+  ['amazon','temu','loot','faithful','zando'].forEach(store=>{
     const term=s[store];
     const el=document.getElementById('link'+store.charAt(0).toUpperCase()+store.slice(1));
     if(!el) return;
-    if(term){ el.href=storeUrl(store,term); el.style.opacity='1'; }
-    else { el.href='https://www.'+store+'.com'; el.style.opacity='.5'; }
+    const url=storeUrl(store,term);
+    if(url){ el.href=url; el.style.opacity='1'; }
+    else { el.style.opacity='.35'; }
   });
-  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it above (Ctrl+V) → Click + ADD`;
+  document.getElementById('addHint').innerHTML=`<strong>How:</strong> Click a store above — it opens to <strong>${label}</strong> products. Find one you like → Click on it → Copy the full address from your browser bar (Ctrl+C) → Paste it below (Ctrl+V) → Click + ADD`;
 }
 
 function selPlat(btn,val){
@@ -735,23 +746,22 @@ function swUI(t){
   document.getElementById('tfb').classList.toggle('on',t==='fb');
 }
 
-// ══ STORE COLOURS ══
+// ══ STORE COLOURS & LABELS ══
 const STORE_COLORS = {
-  takealot:'#e53935', amazon:'#ff9900', temu:'#ff6b35',
-  superbalist:'#444', makro:'#00457c', faithful:'#2e7d32'
+  amazon:'#ff9900', temu:'#ff6b35', loot:'#e65100',
+  faithful:'#2e7d32', zando:'#880e4f', other:'#555'
 };
 const STORE_LABELS = {
-  takealot:'Takealot', amazon:'Amazon SA', temu:'Temu',
-  superbalist:'Superbalist', makro:'Makro', faithful:'Faithful2Nature'
+  amazon:'Amazon SA', temu:'Temu', loot:'Loot.co.za',
+  faithful:'Faithful2Nature', zando:'Zando', other:'Online Store'
 };
 
 function guessStore(url){
-  if(url.includes('takealot')) return 'takealot';
-  if(url.includes('amazon'))   return 'amazon';
-  if(url.includes('temu'))     return 'temu';
-  if(url.includes('superbalist')) return 'superbalist';
-  if(url.includes('makro'))    return 'makro';
-  if(url.includes('faithful')) return 'faithful';
+  if(url.includes('amazon'))      return 'amazon';
+  if(url.includes('temu'))        return 'temu';
+  if(url.includes('loot.co.za'))  return 'loot';
+  if(url.includes('faithful'))    return 'faithful';
+  if(url.includes('zando'))       return 'zando';
   return 'other';
 }
 
@@ -1379,14 +1389,14 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
       <div class="gsection">
         <div class="gsection-title">What is this app?</div>
         <div class="gtip">
-          <strong>SA Affiliate Machine</strong> helps you earn money by promoting products from Takealot, Amazon and Temu on TikTok and Facebook Reels.<br><br>
+          <strong>SA Affiliate Machine</strong> helps you earn money by promoting products from Amazon, Temu, Loot and other stores on TikTok and Facebook Reels.<br><br>
           You do <strong>not</strong> buy or sell anything yourself. You simply share a product link. When someone clicks your link and buys — the store pays you a commission automatically every month.
         </div>
       </div>
 
       <div class="gsection">
         <div class="gsection-title">How the money works</div>
-        <div class="gstep"><div class="gnum">1</div><div class="gtext">You find a product on Takealot or Amazon</div></div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">You find a product on Amazon, Loot or Temu</div></div>
         <div class="gstep"><div class="gnum">2</div><div class="gtext">You get a special tracking link from the store's affiliate programme</div></div>
         <div class="gstep"><div class="gnum">3</div><div class="gtext">This app writes your video script, caption and hashtags for you</div></div>
         <div class="gstep"><div class="gnum">4</div><div class="gtext">You film a short video and post it on TikTok or Facebook with your link</div></div>
@@ -1408,37 +1418,66 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
 
     <!-- TAB 1: REGISTER & EARN -->
     <div class="guide-panel" id="gpanel1">
+
       <div class="gsection">
-        <div class="gsection-title">Register on Takealot Affiliates</div>
-        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.takealot.com/affiliates" target="_blank">www.takealot.com/affiliates</a> and click <strong>Sign Up</strong></div></div>
-        <div class="gstep"><div class="gnum">2</div><div class="gtext">Fill in your name, email address and create a password</div></div>
-        <div class="gstep"><div class="gnum">3</div><div class="gtext">Enter your website or social media page (you can use your TikTok or Facebook profile link)</div></div>
-        <div class="gstep"><div class="gnum">4</div><div class="gtext">Submit and wait for approval — usually within 24 hours</div></div>
-        <div class="gstep"><div class="gnum">5</div><div class="gtext">Once approved, log in and search for any product — click <strong>Get Link</strong> to get your personal tracking link</div></div>
-        <div class="gstep"><div class="gnum">6</div><div class="gtext">Use that link in your posts — every sale earns you <strong>3%–7% commission</strong></div></div>
-        <a class="glink-btn takealot" href="https://www.takealot.com/affiliates" target="_blank">🛍️ Register on Takealot</a>
+        <div class="gsection-title">⚠️ Important — Takealot has NO affiliate programme</div>
+        <div class="gtip" style="border-color:rgba(255,69,0,.4);background:rgba(255,69,0,.07);">
+          <strong style="color:var(--accent);">Takealot does NOT have an affiliate programme in 2026.</strong> Do not waste time looking for one on their website — it does not exist. Use the stores below instead — they all have working programmes that pay commission directly to your South African bank account.
+        </div>
       </div>
 
       <div class="gsection">
-        <div class="gsection-title">Register on Amazon Associates</div>
+        <div class="gsection-title">✅ Register on Amazon Associates (Best for SA)</div>
         <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://affiliate-program.amazon.com" target="_blank">affiliate-program.amazon.com</a> and click <strong>Sign Up</strong></div></div>
-        <div class="gstep"><div class="gnum">2</div><div class="gtext">Sign in with your Amazon account or create one free</div></div>
-        <div class="gstep"><div class="gnum">3</div><div class="gtext">Enter your website or social media profile link</div></div>
-        <div class="gstep"><div class="gnum">4</div><div class="gtext">Choose your preferred categories</div></div>
-        <div class="gstep"><div class="gnum">5</div><div class="gtext">Once approved — search any product and click <strong>Get Link</strong> to generate your tracking link</div></div>
-        <div class="gstep"><div class="gnum">6</div><div class="gtext">Commission is <strong>1%–10%</strong> depending on category</div></div>
-        <a class="glink-btn amazon" href="https://affiliate-program.amazon.com" target="_blank">📦 Register on Amazon</a>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Sign in with your Amazon account or create one free — just needs your email address</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Enter your website or social media profile link — use your TikTok or Facebook profile page link</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Choose your preferred product categories — select all that apply</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Once approved — search any product on Amazon SA and click <strong>Get Link</strong> to generate your tracking link</div></div>
+        <div class="gstep"><div class="gnum">6</div><div class="gtext">Commission is <strong>1% to 10%</strong> depending on product category. Cookie lasts <strong>89 days</strong> — meaning if someone clicks your link and buys within 89 days you still earn.</div></div>
+        <a class="glink-btn amazon" href="https://affiliate-program.amazon.com" target="_blank">📦 Register on Amazon Associates</a>
       </div>
 
       <div class="gsection">
-        <div class="gsection-title">Register on Temu Affiliate</div>
+        <div class="gsection-title">✅ Register on Temu Affiliate (Highest Commission)</div>
         <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.temu.com/affiliate-program.html" target="_blank">www.temu.com/affiliate-program.html</a></div></div>
         <div class="gstep"><div class="gnum">2</div><div class="gtext">Click <strong>Join Now</strong> and create a free account</div></div>
         <div class="gstep"><div class="gnum">3</div><div class="gtext">Link your TikTok or Facebook profile</div></div>
-        <div class="gstep"><div class="gnum">4</div><div class="gtext">Once approved, get your tracking links from the dashboard</div></div>
-        <div class="gstep"><div class="gnum">5</div><div class="gtext">Temu pays up to <strong>20% commission</strong> — one of the highest available</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Once approved, find any product and copy your personal tracking link from your dashboard</div></div>
+        <div class="gstep"><div class="gnum">5</div><div class="gtext">Temu pays up to <strong>20% commission</strong> — the highest of any SA-accessible store. Their low prices mean people buy quickly.</div></div>
         <a class="glink-btn temu" href="https://www.temu.com/affiliate-program.html" target="_blank">🛒 Register on Temu</a>
       </div>
+
+      <div class="gsection">
+        <div class="gsection-title">✅ Register on Loot.co.za (South African, pays in Rands)</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.loot.co.za/content/affiliate-programme" target="_blank">www.loot.co.za/content/affiliate-programme</a></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Click <strong>Apply Now</strong> and fill in your details</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Loot is a South African store similar to Takealot — sells electronics, books, toys, homeware and more</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Earn <strong>5% commission</strong> paid directly to your South African bank account monthly</div></div>
+        <a class="glink-btn" href="https://www.loot.co.za/content/affiliate-programme" target="_blank" style="background:#e65100;">🛍️ Register on Loot.co.za</a>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">✅ Register on Faithful to Nature (Beauty & Health — 15%)</div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Go to <a href="https://www.faithful2nature.co.za/pages/affiliate-programme" target="_blank">www.faithful2nature.co.za/pages/affiliate-programme</a></div></div>
+        <div class="gstep"><div class="gnum">2</div><div class="gtext">Click <strong>Join Now</strong> — approval is quick, usually within 48 hours</div></div>
+        <div class="gstep"><div class="gnum">3</div><div class="gtext">Best for beauty, skincare and natural health products</div></div>
+        <div class="gstep"><div class="gnum">4</div><div class="gtext">Earn up to <strong>15% commission</strong> — one of the highest rates in South Africa</div></div>
+        <a class="glink-btn faithful" href="https://www.faithful2nature.co.za/pages/affiliate-programme" target="_blank">🌿 Register on Faithful to Nature</a>
+      </div>
+
+      <div class="gsection">
+        <div class="gsection-title">Commission comparison at a glance</div>
+        <table class="earnings-table">
+          <tr><th>Store</th><th>Commission</th><th>Cookie</th><th>Pays in ZAR</th></tr>
+          <tr><td>Amazon SA</td><td>1%–10%</td><td>89 days</td><td>✅ Yes</td></tr>
+          <tr><td>Temu</td><td>Up to 20%</td><td>30 days</td><td>✅ Yes</td></tr>
+          <tr><td>Loot.co.za</td><td>5%</td><td>30 days</td><td>✅ Yes</td></tr>
+          <tr><td>Faithful to Nature</td><td>Up to 15%</td><td>30 days</td><td>✅ Yes</td></tr>
+          <tr><td>Zando</td><td>5%</td><td>30 days</td><td>✅ Yes</td></tr>
+          <tr><td>Takealot</td><td colspan="3" style="color:var(--accent);">❌ No affiliate programme exists</td></tr>
+        </table>
+      </div>
+
     </div>
 
     <!-- TAB 2: USING THE APP -->
@@ -1455,7 +1494,7 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
 
       <div class="gsection">
         <div class="gsection-title">Step 3 — Add Products</div>
-        <div class="gstep"><div class="gnum">1</div><div class="gtext">Tap a store button — <strong>Browse Takealot, Browse Amazon</strong> etc — it opens directly to your category</div></div>
+        <div class="gstep"><div class="gnum">1</div><div class="gtext">Tap a store button — <strong>Browse Amazon, Browse Loot, Browse Temu</strong> etc — it opens directly to your category</div></div>
         <div class="gstep"><div class="gnum">2</div><div class="gtext">Find a product you like and click on it</div></div>
         <div class="gstep"><div class="gnum">3</div><div class="gtext">Copy the web address from your browser bar — on PC press <strong>Ctrl+C</strong>, on phone tap the address bar then tap Copy</div></div>
         <div class="gstep"><div class="gnum">4</div><div class="gtext">Come back to the app, paste the link in the box and tap <strong>+ ADD</strong></div></div>
@@ -1491,7 +1530,7 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
         <div class="gstep"><div class="gnum">3</div><div class="gtext">Tap <strong>Share</strong></div></div>
         <div class="gstep"><div class="gnum">4</div><div class="gtext">Tap <strong>Copy link</strong></div></div>
         <div class="gstep"><div class="gnum">5</div><div class="gtext">Go back to the app and paste the link in the + ADD box</div></div>
-        <div class="gtip"><strong>Works on every store</strong> — Takealot, Temu, Makro, Superbalist and all others. This method never fails.</div>
+        <div class="gtip"><strong>Works on every store</strong> — Amazon, Loot, Temu, Makro, Superbalist and all others. This method never fails.</div>
       </div>
 
       <div class="gsection">
@@ -1575,11 +1614,12 @@ if(window.speechSynthesis) window.speechSynthesis.getVoices();
       <div class="gsection">
         <div class="gsection-title">Commission rates</div>
         <table class="earnings-table">
-          <tr><th>Store</th><th>Commission</th><th>Payout</th></tr>
-          <tr><td>Takealot</td><td>3% – 7%</td><td>Monthly</td></tr>
-          <tr><td>Amazon SA</td><td>1% – 10%</td><td>Monthly</td></tr>
-          <tr><td>Temu</td><td>Up to 20%</td><td>Monthly</td></tr>
-          <tr><td>Superbalist</td><td>5% – 8%</td><td>Monthly</td></tr>
+          <tr><th>Store</th><th>Commission</th><th>Cookie</th><th>Payout</th></tr>
+          <tr><td>Amazon SA</td><td>1% – 10%</td><td>89 days</td><td>Monthly</td></tr>
+          <tr><td>Temu</td><td>Up to 20%</td><td>30 days</td><td>Monthly</td></tr>
+          <tr><td>Loot.co.za</td><td>5%</td><td>30 days</td><td>Monthly</td></tr>
+          <tr><td>Faithful to Nature</td><td>Up to 15%</td><td>30 days</td><td>Monthly</td></tr>
+          <tr><td>Zando</td><td>5%</td><td>30 days</td><td>Monthly</td></tr>
         </table>
       </div>
 
